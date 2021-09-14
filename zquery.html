@@ -1,0 +1,135 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="http://neo4j-contrib.github.io/developer-resources/language-guides/assets/css/main.css">
+    <title>Neo4j Disease and Diet</title>
+</head>
+
+<body>
+<div id="graph">
+</div>
+<div role="navigation" class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <ul class="nav navbar-nav">
+                    <li>
+						<form role="search" class="navbar-form" id="search">
+                        <th>Welcome to the Query Generator... Please browse through the options and fill the blanks to execute desired query. The following options are available:</th>    
+						</form>
+                        
+						 <form role="q1" class="navbar-form" action="/forward/" method="post">
+							<table><tr>
+                            <div class="form-group">
+								<td><th>1. How many diets are known to be</th></td>
+                               <td> <input type="text" placeholder="relation" class="form-control" name="q11"></td>
+								<td><th>for</th></td>
+								
+                            </div>
+                            <td><button class="btn btn-default" type="submit">Execute</button></td>
+							<td><input type="text" class="form-control" id="soln1"></td></tr></table>
+                        </form>
+						
+						
+                    </li>
+                </ul>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+    
+<style type="text/css">
+    .link {
+  stroke: #ccc;
+}
+
+.node text {
+  pointer-events: none;
+  font: 10px sans-serif;
+}
+</style>
+
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+	function q1() {
+            var q11=$("#q11").find("input[name=q11]").val();
+			var q12=$("#q12").find("input[name=q12]").val();
+			alert(q12)
+            $.get("/forward/query1?q11=" + encodeURIComponent(q11) + "&q12=" + encodeURIComponent(q12),
+                    function (data) {
+                        alert(data)
+						var h = $("table#defaullt3 tbody").empty();
+						$("<input type='text' value="+ data.cm +" name='cm'>").appendTo(t)
+
+                    }, "json");
+            return false;
+        }
+				
+		        $("#q11").submit(q11);
+				q1();
+	}	)
+</script>
+
+<script type="text/javascript">
+   var width = 960,
+    height = 900
+
+var svg = d3.select("#graph").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+var force = d3.layout.force()
+    .gravity(0.05)
+    .distance(100)
+    .charge(-100)
+    .size([width, height]);
+
+d3.json("/graph", function(error, graph) {
+  if (error) throw error;
+
+  force
+      .nodes(graph.nodes)
+      .links(graph.links)
+      .start();
+
+  var link = svg.selectAll(".link")
+      .data(graph.links)
+    .enter().append("line")
+      .attr("class", "link");
+
+  var node = svg.selectAll(".node")
+      .data(graph.nodes)
+    .enter().append("g")
+      .attr("class", "node")
+      .call(force.drag);
+
+	  node.append("image")
+      .attr("xlink:href", "https://github.com/favicon.ico")
+      .attr("x", -8)
+      .attr("y", -8)
+      .attr("width", 16)
+      .attr("height", 16);
+  
+  node.append("text")
+      .attr("dx", 12)
+      .attr("dy", ".35em")
+      .text(function(d) { return d.Name });
+
+  force.on("tick", function() {
+    link.attr("x1", function(d) { return d.source.x; })
+        .attr("y1", function(d) { return d.source.y; })
+        .attr("x2", function(d) { return d.target.x; })
+        .attr("y2", function(d) { return d.target.y; });
+
+    node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+  });
+});
+
+</script>
+</body>
+</html>
