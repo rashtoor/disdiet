@@ -1,5 +1,5 @@
 Flask==1.1.2
-numpy==1.20.2
+numpy==1.19.5
 pandas==1.2.5
 wtforms==2.3.3
 imbalanced-learn==0.8.0
