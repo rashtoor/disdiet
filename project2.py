@@ -50,5 +50,5 @@ if __name__ == "__main__":
            "please wait until server has fully started"))
     #load_keras_model()
     # Run app
-    app.run(host="172.31.44.251", port=8002)
+    app.run(host="0.0.0.0", port=8002)
     #app.run(port=8002)
