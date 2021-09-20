@@ -19,35 +19,25 @@ from imblearn.pipeline import Pipeline
 
 def network_analysis(dis):
     
-    graph = Graph("bolt://localhost:11012", auth=("neo4j", "dilpreet"))
+    graph = Graph("https://15.207.24.149:7473", auth=("neo4j", "dilpreet"))
     #query for creating graph for new node like crohns disease
-    graph.run("""Load CSV with headers from "file:///crohns_val.csv" as line 
-                 merge(n:disease{Name:line.disease})
-                 merge (m:diet{Name:line.diet})
-                 merge (n)-[r:linked_to{cooccurrence:line.link}]-(m)""").to_data_frame()
+    graph.run("""Load CSV with headers from "https://docs.google.com/spreadsheets/d/e/2PACX-1vRpVs0bzfJdlzwJFTx2TVQMJIoIsucHjqVTvnw9cL3BCftJUzrzEXNkC7M9vmyD2G51FnVqf6UaXBcy/pub?gid=0&single=true&output=csv" as line merge(n:disease{Name:line.disease}) merge (m:diet{Name:line.diet}) merge (n)-[r:linked_to{cooccurrence:toFloat(line.link)}]->(m)
+""").to_data_frame()
     graph.run("""MATCH (n:disease{Name:$dis})-[r:linked_to]-()
               SET r.cooccurrence = toFloat(r.cooccurrence)""",dis=dis)
-    train_existing_links1 = graph.run("""MATCH (m:disease)-[r:linked_to]->(n:diet) 
-                                      where m.Name='IBD' and exists(r.train_data) 
+    existing_links1 = graph.run("""MATCH (m:disease)-[r:linked_to]->(n:diet) 
+                                      where m.Name='IBD'
                                       RETURN m.Name as node1, n.Name as node2, 1 as label
                                       """).to_data_frame()
-    train_existing_links2 = graph.run("""MATCH (m:disease)-[r:linked_to]->(n:diet) 
-                                      where m.Name='UC' and exists(r.train_data) 
+    existing_links2 = graph.run("""MATCH (m:disease)-[r:linked_to]->(n:diet) 
+                                      where m.Name='UC' 
                                       RETURN m.Name as node1, n.Name as node2, 1 as label
                                       """).to_data_frame()
     pred_existing_links = graph.run("""MATCH (m:disease)-[r:linked_to]->(n:diet) 
                                     where m.Name=$dis
                                     RETURN m.Name as node1, n.Name as node2, 1 as label
                                     """,dis=dis).to_data_frame()
-    test_existing_links1 = graph.run("""MATCH (m:disease)-[r:linked_to]->(n:diet) 
-                                     where m.Name='IBD' and not exists(r.train_data) 
-                                     RETURN m.Name as node1, n.Name as node2, 1 as label
-                                     """).to_data_frame()
-    test_existing_links2 = graph.run("""MATCH (m:disease)-[r:linked_to]->(n:diet) 
-                                     where m.Name='UC' and not exists(r.train_data) 
-                                     RETURN m.Name as node1, n.Name as node2, 1 as label
-                                     """).to_data_frame()
-    pred_missing_links1 = graph.run("""match (m:disease{Name:$dis})-[r:linked_to]-(n:diet) 
+    pred_missing_links = graph.run("""match (m:disease{Name:$dis})-[r:linked_to]-(n:diet) 
                                     with collect(distinct n.Name) as t, m.Name as m
                                     match (a:diet) where not a.Name in t and 
                                     a.Name in ["bread", "wine", "carbonated beverage", "coffee", "energy drink", 
@@ -55,10 +45,16 @@ def network_analysis(dis):
                                                "spices (tamarind)", "butter", "cheese (cottage)", "cheese (processed)", "yogurt", "margarine", 
                                                "rice (white)", "rice (brown)", "chocolate", "pumpkin", "plum", "germinated barley", "extra virgin olive oil", 
                                                "safflower oil", "sesame oil", "soybean oil", "egg (white)", "egg yolk", "fast food", "fruit pulp flour", 
-                                               "frozen food", "honey", "manuka honey+sulfasalazine", "meat products/red meat", "fish", "white fish/ shellfish"] 
+                                               "frozen food", "honey", "manuka honey+sulfasalazine", "meat products/red meat", "fish", "white fish/ shellfish",
+                                               "nuts", "apple", "fruit", "apple sauce/stewed", "banana", 
+                                               "sugar beet", "blueberry", "cabbage", "carrot", "cornelian cherry", "coriander", "corn/corn gluten", 
+                                               "cranberry", "red grapes/grape juice", "grape", "black pepper", "citrus", "orange", 
+                                               "mango", "lettuce", "pear", "milk", "tomato", "cooked potato", "boiled potato", 
+                                               "beer", "vegetable (raw)", "vegetable (soft)", "mushroom", "oats", "oatmeal", "green pea (bland)", 
+                                               "pineapple", "pistachio nut oil", "spinach (raw)", "spinach (cooked)", "spinach juice", "strawberry extract"] 
                                     return distinct a.Name as node2, m as node1, 0 as label
                                 """,dis=dis).to_data_frame()
-    train_missing_links2 = graph.run("""match (m:disease{Name:'IBD'})-[r:linked_to]-(n:diet) 
+    missing_links1 = graph.run("""match (m:disease{Name:'IBD'})-[r:linked_to]-(n:diet) 
                                      with collect(distinct n.Name) as t, m.Name as m
                                      match (a:diet) where not a.Name in t and 
                                      a.Name in ["bread", "wine", "carbonated beverage", "coffee", "energy drink", 
@@ -66,10 +62,16 @@ def network_analysis(dis):
                                                 "spices (tamarind)", "butter", "cheese (cottage)", "cheese (processed)", "yogurt", "margarine", 
                                                 "rice (white)", "rice (brown)", "chocolate", "pumpkin", "plum", "germinated barley", "extra virgin olive oil", 
                                                 "safflower oil", "sesame oil", "soybean oil", "egg (white)", "egg yolk", "fast food", "fruit pulp flour", 
-                                                "frozen food", "honey", "manuka honey+sulfasalazine", "meat products/red meat", "fish", "white fish/ shellfish"] 
+                                                "frozen food", "honey", "manuka honey+sulfasalazine", "meat products/red meat", "fish", "white fish/ shellfish",
+                                                "nuts", "apple", "fruit", "apple sauce/stewed", "banana", 
+                                               "sugar beet", "blueberry", "cabbage", "carrot", "cornelian cherry", "coriander", "corn/corn gluten", 
+                                               "cranberry", "red grapes/grape juice", "grape", "black pepper", "citrus", "orange", 
+                                               "mango", "lettuce", "pear", "milk", "tomato", "cooked potato", "boiled potato", 
+                                               "beer", "vegetable (raw)", "vegetable (soft)", "mushroom", "oats", "oatmeal", "green pea (bland)", 
+                                               "pineapple", "pistachio nut oil", "spinach (raw)", "spinach (cooked)", "spinach juice", "strawberry extract"] 
                                      return distinct a.Name as node2, m as node1,  0 as label
                                 """).to_data_frame()
-    train_missing_links3 = graph.run("""match (m:disease{Name:'UC'})-[r:linked_to]-(n:diet) 
+    missing_links2 = graph.run("""match (m:disease{Name:'UC'})-[r:linked_to]-(n:diet) 
                                      with collect(distinct n.Name) as t, m.Name as m
                                      match (a:diet) where not a.Name in t and 
                                      a.Name in ["bread", "wine", "carbonated beverage", "coffee", "energy drink", 
@@ -77,65 +79,32 @@ def network_analysis(dis):
                                                 "spices (tamarind)", "butter", "cheese (cottage)", "cheese (processed)", "yogurt", "margarine", 
                                                 "rice (white)", "rice (brown)", "chocolate", "pumpkin", "plum", "germinated barley", "extra virgin olive oil", 
                                                 "safflower oil", "sesame oil", "soybean oil", "egg (white)", "egg yolk", "fast food", "fruit pulp flour", 
-                                                "frozen food", "honey", "manuka honey+sulfasalazine", "meat products/red meat", "fish", "white fish/ shellfish"] 
+                                                "frozen food", "honey", "manuka honey+sulfasalazine", "meat products/red meat", "fish", "white fish/ shellfish",
+                                                "nuts", "apple", "fruit", "apple sauce/stewed", "banana", 
+                                               "sugar beet", "blueberry", "cabbage", "carrot", "cornelian cherry", "coriander", "corn/corn gluten", 
+                                               "cranberry", "red grapes/grape juice", "grape", "black pepper", "citrus", "orange", 
+                                               "mango", "lettuce", "pear", "milk", "tomato", "cooked potato", "boiled potato", 
+                                               "beer", "vegetable (raw)", "vegetable (soft)", "mushroom", "oats", "oatmeal", "green pea (bland)", 
+                                               "pineapple", "pistachio nut oil", "spinach (raw)", "spinach (cooked)", "spinach juice", "strawberry extract"] 
                                      return distinct a.Name as node2, m as node1,  0 as label
                                 """).to_data_frame()
 
 
-    pdList = [train_existing_links1,train_existing_links2,train_missing_links2,train_missing_links3] 
-    new_df_train = pd.concat(pdList)
-    #print(new_df_train)
+    pdList1 = [existing_links1,existing_links2,missing_links1,missing_links2] 
+    pdList2 = [pred_existing_links,pred_missing_links] 
+    df = pd.concat(pdList1)
+    df1=pd.concat(pdList2)
+    
 
 
 
-    pred_missing_links2 = graph.run("""match (m:disease{Name:$dis})-[r:linked_to]-(n:diet) 
-                                    with collect(distinct n.Name) as t, m.Name as m
-                                    match (a:diet) where not a.Name in t and 
-                                    a.Name in ["nuts", "apple", "fruit", "apple sauce/stewed", "banana", 
-                                               "sugar beet", "blueberry", "cabbage", "carrot", "cornelian cherry", "coriander", "corn/corn gluten", 
-                                               "cranberry", "red grapes/grape juice", "grape", "black pepper", "citrus", "orange", 
-                                               "mango", "lettuce", "pear", "milk", "tomato", "cooked potato", "boiled potato", 
-                                               "beer", "vegetable (raw)", "vegetable (soft)", "mushroom", "oats", "oatmeal", "green pea (bland)", 
-                                               "pineapple", "pistachio nut oil", "spinach (raw)", "spinach (cooked)", "spinach juice", "strawberry extract"] 
-                                    return distinct a.Name as node2, m as node1,  0 as label
-                                    """,dis=dis).to_data_frame()
+    
 
 
-    test_missing_links2 = graph.run("""match (m:disease{Name:'IBD'})-[r:linked_to]-(n:diet) 
-                                    with collect(distinct n.Name) as t, m.Name as m
-                                    match (a:diet) where not a.Name in t and 
-                                    a.Name in ["nuts", "apple", "fruit", "apple sauce/stewed", "banana", 
-                                               "sugar beet", "blueberry", "cabbage", "carrot", "cornelian cherry", "coriander", "corn/corn gluten", 
-                                               "cranberry", "red grapes/grape juice", "grape", "black pepper", "citrus", "orange", 
-                                               "mango", "lettuce", "pear", "milk", "tomato", "cooked potato", "boiled potato", 
-                                               "beer", "vegetable (raw)", "vegetable (soft)", "mushroom", "oats", "oatmeal", "green pea (bland)", 
-                                               "pineapple", "pistachio nut oil", "spinach (raw)", "spinach (cooked)", "spinach juice", "strawberry extract"] 
-                                    return distinct a.Name as node2, m as node1,  0 as label
-                                """).to_data_frame()
-
-
-    test_missing_links3 = graph.run("""match (m:disease{Name:'UC'})-[r:linked_to]-(n:diet) 
-                                    with collect(distinct n.Name) as t, m.Name as m
-                                    match (a:diet) where not a.Name in t and 
-                                    a.Name in ["nuts", "apple", "fruit", "apple sauce/stewed", "banana", 
-                                               "sugar beet", "blueberry", "cabbage", "carrot", "cornelian cherry", "coriander", "corn/corn gluten", 
-                                               "cranberry", "red grapes/grape juice", "grape", "black pepper", "citrus", "orange", 
-                                               "mango", "lettuce", "pear", "milk", "tomato", "cooked potato", "boiled potato", 
-                                               "beer", "vegetable (raw)", "vegetable (soft)", "mushroom", "oats", "oatmeal", "green pea (bland)", 
-                                               "pineapple", "pistachio nut oil", "spinach (raw)", "spinach (cooked)", "spinach juice", "strawberry extract"] 
-                                    return distinct a.Name as node2, m as node1,  0 as label
-                                """).to_data_frame()
-
-
-    pdList2 = [test_existing_links1,test_existing_links2,test_missing_links2,test_missing_links3]
-    pdList3 = [pred_existing_links,pred_missing_links1,pred_missing_links2]  
-    new_df_test = pd.concat(pdList2)
-    new_df_pred = pd.concat(pdList3)
-    #print(new_df_test.shape)
-    #new_df_test.to_csv('E:\\PhD\\main_work\\new_df_test.csv')
-    #new_df_pred.to_csv('E:\\PhD\\main_work\\new_df_test.csv')
-    #print(new_df_train.shape)
-    #print(new_df_pred.shape)
+    
+    
+    print(df.shape)
+    print(df1.shape)
 
 
 
@@ -147,18 +116,15 @@ def network_analysis(dis):
                    """).to_data_frame()
     
   
-    df=pd.merge(new_df_train, query1, how="left", on=['node1', 'node2'])
-    df1=pd.merge(new_df_pred, query1, how="left", on=['node1', 'node2'])
-    df2=pd.merge(new_df_test, query1, how="left", on=['node1', 'node2'])
-
+    df=pd.merge(df, query1, how="left", on=['node1', 'node2'])
+    df1=pd.merge(df1, query1, how="left", on=['node1', 'node2'])
+    
     df=df.fillna(0)
     df1=df1.fillna(0)
-    df2=df2.fillna(0)
-
+    
     
 
-    #df_row = pd.concat([df, df2])
-
+    
    
     query2 = graph.run("""
                        CALL gds.alpha.triangleCount.write({
@@ -207,29 +173,7 @@ def network_analysis(dis):
 
 
 
-    v_min=[]
-    v_max=[]
-    for i in range(df2.shape[0]):
-        a=df2.iloc[i,0]
-        b=df2.iloc[i,1]
-        a1=query3.loc[query3['node.Name']==a]
-        a2=a1.iat[0,1]
-        b1=query3.loc[query3['node.Name']==b]
-        b2=b1.iat[0,1]
-   
-        if a2>b2:
-            v_min.insert(i,b2)
-            v_max.insert(i,a2)
-      
-        else:
-            v_max.insert(i,b2)
-            v_min.insert(i,a2)
-
-
-
-    df2["MaxTriangles"]=v_max
-    df2["MinTriangles"]=v_min
-
+    
 
     v_min=[]
     v_max=[]
@@ -299,26 +243,7 @@ def network_analysis(dis):
 
 
 
-    c_min=[]
-    c_max=[]
-    for i in range(df2.shape[0]):
-        a=df2.iloc[i,0]
-        b=df2.iloc[i,1]
-        a1=query5.loc[query5['node.Name']==a]
-        a2=a1.iat[0,1]
-        b1=query5.loc[query5['node.Name']==b]
-        b2=b1.iat[0,1]
     
-        if a2>b2:
-            c_min.insert(i,b2)
-            c_max.insert(i,a2)
-        else:
-            c_max.insert(i,b2)
-            c_min.insert(i,a2)
-
-    df2["MaxCoefficient"]=c_max
-    df2["MinCoefficient"]=c_min
-
     c_min=[]
     c_max=[]
     for i in range(df1.shape[0]):
@@ -343,7 +268,6 @@ def network_analysis(dis):
                      RETURN p1.Name as node1, p2.Name as node2, gds.alpha.linkprediction.commonNeighbors(p1, p2) AS common_neighbors""").to_data_frame()
 
     df=pd.merge(df, query6, on=['node1', 'node2'])
-    df2=pd.merge(df2, query6, on=['node1', 'node2'])
     df1=pd.merge(df1, query6, on=['node1', 'node2'])
 
 
@@ -351,14 +275,12 @@ def network_analysis(dis):
                      RETURN p1.Name as node1, p2.Name as node2, gds.alpha.linkprediction.preferentialAttachment(p1, p2) AS preferential_attachment""").to_data_frame()
 
     df=pd.merge(df, query7, on=['node1', 'node2'])
-    df2=pd.merge(df2, query7, on=['node1', 'node2'])
     df1=pd.merge(df1, query7, on=['node1', 'node2'])
 
     query8=graph.run("""MATCH (p1) MATCH (p2)
                      RETURN p1.Name as node1, p2.Name as node2, gds.alpha.linkprediction.totalNeighbors(p1, p2) AS total_neighbors""").to_data_frame()
 
     df=pd.merge(df, query8, on=['node1', 'node2'])
-    df2=pd.merge(df2, query8, on=['node1', 'node2'])
     df1=pd.merge(df1, query8, on=['node1', 'node2'])
     #print(df_new2)
 
@@ -393,7 +315,6 @@ def network_analysis(dis):
 
     #print(query9)
     df=pd.merge(df, query9, on=['node1', 'node2'])
-    df2=pd.merge(df2, query9, on=['node1', 'node2'])
     df1=pd.merge(df1, query9, on=['node1', 'node2'])
     #print(df_new2)
     
@@ -432,21 +353,19 @@ def network_analysis(dis):
 
 
     df=pd.merge(df, query11, on=['node1', 'node2'])
-    df2=pd.merge(df2, query11, on=['node1', 'node2'])
     df1=pd.merge(df1, query11, on=['node1', 'node2'])
     #print(df_new2)
     #df.to_csv('E:\\PhD\\main_work\\features.csv')
-    dataset = pd.concat([df, df2])
-
+    
 
     columns=["cooccurrence_sum","MaxTriangles","MinTriangles","MaxCoefficient","MinCoefficient","common_neighbors","preferential_attachment","total_neighbors","distance"]
     columns2=["sp"]
     columns1=["node1","node2", "label"]
     A=df1[columns]
     b=df1['label']
-    C=dataset[columns]
-    d=dataset['label']
-    f1=dataset[columns2]
+    C=df[columns]
+    d=df['label']
+    f1=df[columns2]
     f2=df1[columns2]
     encoder = OneHotEncoder(sparse=False)
     # transform data
@@ -471,7 +390,7 @@ def network_analysis(dis):
     #df.to_csv('E:\\PhD\\main_work\\features.csv')
 
 
-    v=dataset.groupby(dataset['label']).count()
+    v=df.groupby(df['label']).count()
    # print(v)
 
 
