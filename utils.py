@@ -19,7 +19,8 @@ from imblearn.pipeline import Pipeline
 
 def network_analysis(dis):
     
-    graph = Graph("https://15.207.24.149:7473", auth=("neo4j", "dilpreet"))
+    #graph = Graph("https://15.207.24.149:7473", auth=("neo4j", "dilpreet"))
+    graph = Graph("bolt://15.207.24.149:7687", auth=("neo4j", "dilpreet"))
     #query for creating graph for new node like crohns disease
     graph.run("""Load CSV with headers from "https://docs.google.com/spreadsheets/d/e/2PACX-1vRpVs0bzfJdlzwJFTx2TVQMJIoIsucHjqVTvnw9cL3BCftJUzrzEXNkC7M9vmyD2G51FnVqf6UaXBcy/pub?gid=0&single=true&output=csv" as line merge(n:disease{Name:line.disease}) merge (m:diet{Name:line.diet}) merge (n)-[r:linked_to{cooccurrence:toFloat(line.link)}]->(m)
 """).to_data_frame()
