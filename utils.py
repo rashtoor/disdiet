@@ -49,10 +49,10 @@ def network_analysis(dis):
                                                "frozen food", "honey", "manuka honey+sulfasalazine", "meat products/red meat", "fish", "white fish/ shellfish",
                                                "nuts", "apple", "fruit", "apple sauce/stewed", "banana", 
                                                "sugar beet", "blueberry", "cabbage", "carrot", "cornelian cherry", "coriander", "corn/corn gluten", 
-                                               "cranberry", "red grapes/grape juice", "grape", "black pepper", "citrus", "orange", 
+                                               "cranberry", "red grapes/grape juice", "grape", "black pepper", "citrus", "orange ", 
                                                "mango", "lettuce", "pear", "milk", "tomato", "cooked potato", "boiled potato", 
                                                "beer", "vegetable (raw)", "vegetable (soft)", "mushroom", "oats", "oatmeal", "green pea (bland)", 
-                                               "pineapple", "pistachio nut oil", "spinach (raw)", "spinach (cooked)", "spinach juice", "strawberry extract"] 
+                                               "pineapple", "pistachio nut oil", "spinach (raw)", "spinach (cooked)", "spinach juice", "strawberry extract", "spices (turmeric)", "chewing gum"] 
                                     return distinct a.Name as node2, m as node1, 0 as label
                                 """,dis=dis).to_data_frame()
     missing_links1 = graph.run("""match (m:disease{Name:'IBD'})-[r:linked_to]-(n:diet) 
@@ -66,10 +66,10 @@ def network_analysis(dis):
                                                 "frozen food", "honey", "manuka honey+sulfasalazine", "meat products/red meat", "fish", "white fish/ shellfish",
                                                 "nuts", "apple", "fruit", "apple sauce/stewed", "banana", 
                                                "sugar beet", "blueberry", "cabbage", "carrot", "cornelian cherry", "coriander", "corn/corn gluten", 
-                                               "cranberry", "red grapes/grape juice", "grape", "black pepper", "citrus", "orange", 
+                                               "cranberry", "red grapes/grape juice", "grape", "black pepper", "citrus", "orange ", 
                                                "mango", "lettuce", "pear", "milk", "tomato", "cooked potato", "boiled potato", 
                                                "beer", "vegetable (raw)", "vegetable (soft)", "mushroom", "oats", "oatmeal", "green pea (bland)", 
-                                               "pineapple", "pistachio nut oil", "spinach (raw)", "spinach (cooked)", "spinach juice", "strawberry extract"] 
+                                               "pineapple", "pistachio nut oil", "spinach (raw)", "spinach (cooked)", "spinach juice", "strawberry extract", "spices (turmeric)", "chewing gum"] 
                                      return distinct a.Name as node2, m as node1,  0 as label
                                 """).to_data_frame()
     missing_links2 = graph.run("""match (m:disease{Name:'UC'})-[r:linked_to]-(n:diet) 
@@ -83,10 +83,10 @@ def network_analysis(dis):
                                                 "frozen food", "honey", "manuka honey+sulfasalazine", "meat products/red meat", "fish", "white fish/ shellfish",
                                                 "nuts", "apple", "fruit", "apple sauce/stewed", "banana", 
                                                "sugar beet", "blueberry", "cabbage", "carrot", "cornelian cherry", "coriander", "corn/corn gluten", 
-                                               "cranberry", "red grapes/grape juice", "grape", "black pepper", "citrus", "orange", 
+                                               "cranberry", "red grapes/grape juice", "grape", "black pepper", "citrus", "orange ", 
                                                "mango", "lettuce", "pear", "milk", "tomato", "cooked potato", "boiled potato", 
                                                "beer", "vegetable (raw)", "vegetable (soft)", "mushroom", "oats", "oatmeal", "green pea (bland)", 
-                                               "pineapple", "pistachio nut oil", "spinach (raw)", "spinach (cooked)", "spinach juice", "strawberry extract"] 
+                                               "pineapple", "pistachio nut oil", "spinach (raw)", "spinach (cooked)", "spinach juice", "strawberry extract", "spices (turmeric)", "chewing gum"] 
                                      return distinct a.Name as node2, m as node1,  0 as label
                                 """).to_data_frame()
 
