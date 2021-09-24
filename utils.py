@@ -335,8 +335,7 @@ def network_analysis(dis):
             },
         relationshipWeightProperty: 'cooccurrence',
         includeIntermediateCommunities: true,
-        seedProperty: 'cooccurrence',
-        #nodeProperties: ['cooccurrence']
+        seedProperty: 'cooccurrence'
         })
 
         YIELD nodeId, communityId AS community, intermediateCommunityIds
