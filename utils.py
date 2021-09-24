@@ -128,7 +128,7 @@ def network_analysis(dis):
     
    
     query2 = graph.run("""
-                       CALL gds.alpha.triangleCount.write({
+                       CALL gds.triangleCount.write({
                            nodeProjection: '*',
                            relationshipProjection: {
                                relType: {
@@ -202,7 +202,7 @@ def network_analysis(dis):
 
 
     query4 = graph.run("""
-                       CALL gds.alpha.triangleCount.write({
+                       CALL gds.triangleCount.write({
                            nodeProjection: '*',
                            relationshipProjection: {
                                relType: {
