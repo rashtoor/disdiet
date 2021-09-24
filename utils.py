@@ -202,7 +202,7 @@ def network_analysis(dis):
 
 
     query4 = graph.run("""
-                       CALL gds.triangleCount.write({
+                       CALL gds.localClusteringCoefficient.write({
                            nodeProjection: '*',
                            relationshipProjection: {
                                relType: {
@@ -211,7 +211,7 @@ def network_analysis(dis):
                                    properties: {}
                                    }
                                },
-                           clusteringCoefficientProperty: 'coefficient'
+                           writeProperty: 'coefficient'
                            }); """)
    
     query5= graph.run(""" MATCH (node)
