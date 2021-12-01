@@ -28,71 +28,20 @@ def network_analysis(dis):
               SET r.cooccurrence = toFloat(r.cooccurrence)""",dis=dis)
     existing_links1 = graph.run("""MATCH (m:disease)-[r:linked_to]->(n:diet) 
                                       where m.Name='IBD'
-                                      RETURN m.Name as node1, n.Name as node2, 1 as label
+                                      RETURN m.Name as node1, n.Name as node2
                                       """).to_data_frame()
     existing_links2 = graph.run("""MATCH (m:disease)-[r:linked_to]->(n:diet) 
                                       where m.Name='UC' 
-                                      RETURN m.Name as node1, n.Name as node2, 1 as label
+                                      RETURN m.Name as node1, n.Name as node2
                                       """).to_data_frame()
     pred_existing_links = graph.run("""MATCH (m:disease)-[r:linked_to]->(n:diet) 
                                     where m.Name=$dis
-                                    RETURN m.Name as node1, n.Name as node2, 1 as label
+                                    RETURN m.Name as node1, n.Name as node2
                                     """,dis=dis).to_data_frame()
-    pred_missing_links = graph.run("""match (m:disease{Name:$dis})-[r:linked_to]-(n:diet) 
-                                    with collect(distinct n.Name) as t, m.Name as m
-                                    match (a:diet) where not a.Name in t and 
-                                    a.Name in ["bread", "wine", "carbonated beverage", "coffee", "energy drink", 
-                                               "kefir", "whey", "soy milk", "tea (with milk)", "tea (without milk)", "spices (thyme)", "spices (ginger)", 
-                                               "spices (tamarind)", "butter", "cheese (cottage)", "cheese (processed)", "yogurt", "margarine", 
-                                               "rice (white)", "rice (brown)", "chocolate", "pumpkin", "plum", "germinated barley", "extra virgin olive oil", 
-                                               "safflower oil", "sesame oil", "soybean oil", "egg (white)", "egg yolk", "fast food", "fruit pulp flour", 
-                                               "frozen food", "honey", "manuka honey+sulfasalazine", "meat products/red meat", "fish", "white fish/ shellfish",
-                                               "nuts", "apple", "fruit", "apple sauce/stewed", "banana", 
-                                               "sugar beet", "blueberry", "cabbage", "carrot", "cornelian cherry", "coriander", "corn/corn gluten", 
-                                               "cranberry", "red grapes/grape juice", "grape", "black pepper", "citrus", "orange ", 
-                                               "mango", "lettuce", "pear", "milk", "tomato", "cooked potato", "boiled potato", 
-                                               "beer", "vegetable (raw)", "vegetable (soft)", "mushroom", "oats", "oatmeal", "green pea (bland)", 
-                                               "pineapple", "pistachio nut oil", "spinach (raw)", "spinach (cooked)", "spinach juice", "strawberry extract", "spices (turmeric)", "chewing gum"] 
-                                    return distinct a.Name as node2, m as node1, 0 as label
-                                """,dis=dis).to_data_frame()
-    missing_links1 = graph.run("""match (m:disease{Name:'IBD'})-[r:linked_to]-(n:diet) 
-                                     with collect(distinct n.Name) as t, m.Name as m
-                                     match (a:diet) where not a.Name in t and 
-                                     a.Name in ["bread", "wine", "carbonated beverage", "coffee", "energy drink", 
-                                                "kefir", "whey", "soy milk", "tea (with milk)", "tea (without milk)", "spices (thyme)", "spices (ginger)", 
-                                                "spices (tamarind)", "butter", "cheese (cottage)", "cheese (processed)", "yogurt", "margarine", 
-                                                "rice (white)", "rice (brown)", "chocolate", "pumpkin", "plum", "germinated barley", "extra virgin olive oil", 
-                                                "safflower oil", "sesame oil", "soybean oil", "egg (white)", "egg yolk", "fast food", "fruit pulp flour", 
-                                                "frozen food", "honey", "manuka honey+sulfasalazine", "meat products/red meat", "fish", "white fish/ shellfish",
-                                                "nuts", "apple", "fruit", "apple sauce/stewed", "banana", 
-                                               "sugar beet", "blueberry", "cabbage", "carrot", "cornelian cherry", "coriander", "corn/corn gluten", 
-                                               "cranberry", "red grapes/grape juice", "grape", "black pepper", "citrus", "orange ", 
-                                               "mango", "lettuce", "pear", "milk", "tomato", "cooked potato", "boiled potato", 
-                                               "beer", "vegetable (raw)", "vegetable (soft)", "mushroom", "oats", "oatmeal", "green pea (bland)", 
-                                               "pineapple", "pistachio nut oil", "spinach (raw)", "spinach (cooked)", "spinach juice", "strawberry extract", "spices (turmeric)", "chewing gum"] 
-                                     return distinct a.Name as node2, m as node1,  0 as label
-                                """).to_data_frame()
-    missing_links2 = graph.run("""match (m:disease{Name:'UC'})-[r:linked_to]-(n:diet) 
-                                     with collect(distinct n.Name) as t, m.Name as m
-                                     match (a:diet) where not a.Name in t and 
-                                     a.Name in ["bread", "wine", "carbonated beverage", "coffee", "energy drink", 
-                                                "kefir", "whey", "soy milk", "tea (with milk)", "tea (without milk)", "spices (thyme)", "spices (ginger)", 
-                                                "spices (tamarind)", "butter", "cheese (cottage)", "cheese (processed)", "yogurt", "margarine", 
-                                                "rice (white)", "rice (brown)", "chocolate", "pumpkin", "plum", "germinated barley", "extra virgin olive oil", 
-                                                "safflower oil", "sesame oil", "soybean oil", "egg (white)", "egg yolk", "fast food", "fruit pulp flour", 
-                                                "frozen food", "honey", "manuka honey+sulfasalazine", "meat products/red meat", "fish", "white fish/ shellfish",
-                                                "nuts", "apple", "fruit", "apple sauce/stewed", "banana", 
-                                               "sugar beet", "blueberry", "cabbage", "carrot", "cornelian cherry", "coriander", "corn/corn gluten", 
-                                               "cranberry", "red grapes/grape juice", "grape", "black pepper", "citrus", "orange ", 
-                                               "mango", "lettuce", "pear", "milk", "tomato", "cooked potato", "boiled potato", 
-                                               "beer", "vegetable (raw)", "vegetable (soft)", "mushroom", "oats", "oatmeal", "green pea (bland)", 
-                                               "pineapple", "pistachio nut oil", "spinach (raw)", "spinach (cooked)", "spinach juice", "strawberry extract", "spices (turmeric)", "chewing gum"] 
-                                     return distinct a.Name as node2, m as node1,  0 as label
-                                """).to_data_frame()
+    
 
-
-    pdList1 = [existing_links1,existing_links2,missing_links1,missing_links2] 
-    pdList2 = [pred_existing_links,pred_missing_links] 
+    pdList1 = [existing_links1,existing_links2] 
+    pdList2 = [pred_existing_links] 
     df = pd.concat(pdList1)
     df1=pd.concat(pdList2)
     
