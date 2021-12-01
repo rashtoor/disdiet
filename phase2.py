@@ -22,7 +22,7 @@ def network_analysis(dis):
     #graph = Graph("https://15.207.24.149:7473", auth=("neo4j", "dilpreet"))
     graph = Graph("bolt://15.207.24.149:7687", auth=("neo4j", "dilpreet"))
     #query for creating graph for new node like crohns disease
-    graph.run("""Load CSV with headers from "https://docs.google.com/spreadsheets/d/e/2PACX-1vRpVs0bzfJdlzwJFTx2TVQMJIoIsucHjqVTvnw9cL3BCftJUzrzEXNkC7M9vmyD2G51FnVqf6UaXBcy/pub?gid=0&single=true&output=csv" as line merge(n:disease{Name:line.disease}) merge (m:diet{Name:line.diet}) merge (n)-[r:linked_to{cooccurrence:toFloat(line.link)}]->(m)
+    graph.run("""Load CSV with headers from "https://docs.google.com/spreadsheets/d/e/2PACX-1vRpVs0bzfJdlzwJFTx2TVQMJIoIsucHjqVTvnw9cL3BCftJUzrzEXNkC7M9vmyD2G51FnVqf6UaXBcy/pub?gid=0&single=true&output=csv" as line merge(n:disease{Name:line.disease}) merge (m:diet{Name:line.diet}) merge (n)-[r:linked_to{cooccurrence:line.link}]->(m)
 """).to_data_frame()
     graph.run("""MATCH (n:disease{Name:$dis})-[r:linked_to]-()
               SET r.cooccurrence = toFloat(r.cooccurrence)""",dis=dis)
@@ -42,8 +42,8 @@ def network_analysis(dis):
 
     pdList1 = [existing_links1,existing_links2] 
     pdList2 = [pred_existing_links] 
-    df = pd.concat(pdList1)
-    df1=pd.concat(pdList2)
+    df = pd.concat(pdList1) #train_test
+    df1=pd.concat(pdList2) #pred
     
 
 
@@ -298,7 +298,7 @@ def network_analysis(dis):
     df=pd.merge(df, query11, on=['node1', 'node2'])
     df1=pd.merge(df1, query11, on=['node1', 'node2'])
     
-    query12 = graph.run("""match (m:disease)-[r]-(n:diet) return m as node1, n as node2, toFloat(r.relation) as relation
+    query12 = graph.run("""match (m:disease)-[r]-(n:diet) return m as node1, n as node2, toInt(r.relation) as relation
     """).to_data_frame()
     df=pd.merge(df, query12, how="left", on=['node1', 'node2'])
     df1=pd.merge(df1, query12, how="left", on=['node1', 'node2'])
@@ -306,7 +306,7 @@ def network_analysis(dis):
     
     
     
-    #print(df_new2)
+    print(df)
     #df.to_csv('E:\\PhD\\main_work\\features.csv')
     
     se=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -363,7 +363,7 @@ def network_analysis(dis):
 
 
     #v=df.groupby(df['label']).count()
-   # print(v)
+    print(d)
 
 
     stratified_kfold = StratifiedKFold(n_splits=10,shuffle=True,random_state=1)
