@@ -72,9 +72,6 @@ def network_analysis(dis):
     df=df.fillna(0)
     df1=df1.fillna(0)
     
-    
-
-    
    
     query2 = graph.run("""
                        CALL gds.triangleCount.write({
@@ -300,6 +297,15 @@ def network_analysis(dis):
 
     df=pd.merge(df, query11, on=['node1', 'node2'])
     df1=pd.merge(df1, query11, on=['node1', 'node2'])
+    
+    query12 = graph.run("""match (m:disease)-[r]-(n:diet) return m as node1, n as node2, r.relation as relation
+    """).to_data_frame()
+    df=pd.merge(df, query12, how="left", on=['node1', 'node2'])
+    df1=pd.merge(df1, query12, how="left", on=['node1', 'node2'])
+    
+    
+    
+    
     #print(df_new2)
     #df.to_csv('E:\\PhD\\main_work\\features.csv')
     
@@ -326,11 +332,11 @@ def network_analysis(dis):
 
     columns=["cooccurrence_sum","MaxTriangles","MinTriangles","MaxCoefficient","MinCoefficient","common_neighbors","preferential_attachment","total_neighbors","distance"]
     columns2=["sp","cc"]
-    columns1=["node1","node2", "label"]
+    #columns1=["node1","node2", "label"]
     A=df1[columns]
-    b=df1['label']
+    
     C=df[columns]
-    d=df['label']
+    
     f1=df[columns2]
     f2=df1[columns2]
     encoder = OneHotEncoder(sparse=False)
@@ -349,20 +355,20 @@ def network_analysis(dis):
     C = np.append(C,onehot,axis=1)
 
     #print(A.shape)
-
-
+    b=df1['relation']
+    d=df['relation']
     #df_row = pd.concat([df, df2])
     #dataset.to_csv('E:\\PhD\\main_work\\ddd.csv')
     #df.to_csv('E:\\PhD\\main_work\\features.csv')
 
 
-    v=df.groupby(df['label']).count()
+    #v=df.groupby(df['label']).count()
    # print(v)
 
 
     stratified_kfold = StratifiedKFold(n_splits=10,shuffle=True,random_state=1)
 
-    counter = Counter(b)
+    #counter = Counter(b)
     #print(counter)
 
     
