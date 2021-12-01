@@ -1,4 +1,4 @@
-from utils1 import network_analysis
+from phase2 import network_analysis
 
 #from lambda1 import network_analysis
 from flask import Flask, render_template, request
