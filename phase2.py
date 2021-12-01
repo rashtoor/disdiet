@@ -354,9 +354,29 @@ def network_analysis(dis):
     #print(df_new2)
     #df.to_csv('E:\\PhD\\main_work\\features.csv')
     
+    se=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        1,1,1,1,1,1,0]
+    #dataset = pd.concat([df, df2])
+    sr= [0,0,0,0,0,0,0,1,1,1,
+         0,0,0,0,0,0,0,0,0,0,
+         1,0,0,0,0,0,0,1,1,0,
+         0,1,0,0,0,0,0,0,0,0,
+         0,1,0,1,0,0,0,0,0,0,
+         0,0,1,0,0,0,0,0,1,1,
+         1,1,1,0,0,0,0,0,0,0,
+         0,0,0,0,0,0,0,0,0,0,
+         0,0,0,0,0,0,0,0,0,0,
+         0,0,1,0,0,0,0,1,0,0,
+         0,0,0,0,1,0]
+    
+    df['cc']=sr
+    df1['cc']=se
+    
+    
+    
 
     columns=["cooccurrence_sum","MaxTriangles","MinTriangles","MaxCoefficient","MinCoefficient","common_neighbors","preferential_attachment","total_neighbors","distance"]
-    columns2=["sp"]
+    columns2=["sp","cc"]
     columns1=["node1","node2", "label"]
     A=df1[columns]
     b=df1['label']
@@ -391,7 +411,7 @@ def network_analysis(dis):
    # print(v)
 
 
-    stratified_kfold = StratifiedKFold(n_splits=5,shuffle=True,random_state=1)
+    stratified_kfold = StratifiedKFold(n_splits=10,shuffle=True,random_state=1)
 
     counter = Counter(b)
     #print(counter)
@@ -400,10 +420,10 @@ def network_analysis(dis):
 
     C_train, C_test, d_train, d_test = train_test_split(C,d,test_size=0.2,stratify=d,random_state=1)
 
-    m=SVC(random_state=1,probability=True)
-
+    #m=SVC(random_state=1,probability=True)
+    m=GaussianNB(var_smoothing=0.23101297000831597)
     pipeline = imbpipeline(steps = [['smote', SMOTE(random_state=1)],['classifier', m]])
-    scores = cross_val_score(pipeline, C, d, scoring='roc_auc', cv=stratified_kfold, n_jobs=-1)
+    scores = cross_val_score(pipeline, C, d, scoring='accuracy', cv=stratified_kfold, n_jobs=-1)
     #print(scores)
 
 
@@ -424,10 +444,10 @@ def network_analysis(dis):
 
     lr_probs = m.fit(C, d).predict_proba(A)
     # keep probabilities for the positive outcome only
-    lr_probs = lr_probs[:, 1]
+    #lr_probs = lr_probs[:, 1]
     
     df1['prediction']=lr_probs
-    dr=df1.loc[df1['prediction'] >= 0.90]
+    dr=df1.loc[df1['prediction'] >= 0]
     #values=[]
     #for i in range(df1.shape[0]):
      #   if df1.iloc[i,14]>=0.9:
