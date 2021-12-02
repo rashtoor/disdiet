@@ -428,12 +428,12 @@ def network_analysis(dis):
     # Formatting in html
     #q2="perfect"
     html = ''
+    #html = addContent(html, header(
+     #   'Harmful Diets for '+dis, color='black'))
+    #html = addContent(html, box(dr_harm['node2'].tolist()))
     html = addContent(html, header(
-        'Harmful Diets', color='black'))
-    html = addContent(html, box(dr_harm['node2'].tolist()))
-    html = addContent(html, header(
-        'Helpful Diets', color='black'))
-    html = addContent(html, box(dr_help['node2'].tolist()))
+        'Helpful Diets for'+ dis, color='black'))
+    html = addContent(html, box(dr_help.to_html()))
     return f'<div>{html}</div>'
 
 
