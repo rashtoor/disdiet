@@ -430,10 +430,10 @@ def network_analysis(dis):
     html = ''
     html = addContent(html, header(
         'Harmful Diets', color='black'))
-    html = addContent(html, box(dr_harm['node2'].tolist(),dr_harm['prediction'].tolist()))
+    html = addContent(html, box(dr_harm['node2'].tolist()))
     html = addContent(html, header(
         'Helpful Diets', color='black'))
-    html = addContent(html, box(dr_harm['node2'].tolist(),dr_help['prediction'].tolist()))
+    html = addContent(html, box(dr_harm['node2'].tolist()))
     return f'<div>{html}</div>'
 
 
