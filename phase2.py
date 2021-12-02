@@ -390,7 +390,7 @@ def network_analysis(dis):
     #print(metrics.confusion_matrix(d_test, predict1))
 
     predict2 = m.fit(C, d).predict(A)
-    df1['pred']=predict2
+    df1['prediction']=predict2
     #print(df1[columns1])
     #print(predict2)
     #print(metrics.classification_report(b, predict2))
@@ -402,9 +402,9 @@ def network_analysis(dis):
     # keep probabilities for the positive outcome only
     lr_probs = lr_probs[:, 1]
     
-    df1['prediction']=lr_probs
-    dr_harm=df1.loc[df1['pred'] == 0]
-    dr_help=df1.loc[df1['pred'] == 1]
+    df1['probability']=lr_probs
+    dr_harm=df1.loc[df1['prediction'] == 0]
+    dr_help=df1.loc[df1['prediction'] == 1]
     #values=[]
     #for i in range(df1.shape[0]):
      #   if df1.iloc[i,14]>=0.9:
@@ -414,7 +414,7 @@ def network_analysis(dis):
     #df1['prediction']=values
     #print(df1['prediction'])
     #lr = pd.DataFrame(values, columns = ['node1','node2','prediction'])
-    #col=["node1","node2","label","prediction","pred"]
+    col=["node2","prediction","probability"]
     #final=pd.merge(df1[col], lr, on=['node1', 'node2'])
     #ans=pd.concat(final)
     #print(ans)
@@ -428,12 +428,12 @@ def network_analysis(dis):
     # Formatting in html
     #q2="perfect"
     html = ''
-    #html = addContent(html, header(
-     #   'Harmful Diets for '+dis, color='black'))
-    #html = addContent(html, box(dr_harm['node2'].tolist()))
     html = addContent(html, header(
-        'Helpful Diets for'+ dis, color='black'))
-    html = addContent(html, box(dr_help.to_html()))
+        'Harmful Diets for '+dis, color='black'))
+    html = addContent(html, box(dr_harm[col].tolist()))
+    html = addContent(html, header(
+        'Helpful Diets for '+dis, color='black'))
+    html = addContent(html, box(dr_help[col].to_html()))
     return f'<div>{html}</div>'
 
 
