@@ -3,6 +3,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.model_selection import StratifiedKFold
 from imblearn.pipeline import Pipeline as imbpipeline
 import pandas as pd
+from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import roc_curve, auc
 from collections import Counter
 import numpy as np
