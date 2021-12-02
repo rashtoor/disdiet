@@ -403,7 +403,8 @@ def network_analysis(dis):
     lr_probs = lr_probs[:, 1]
     
     df1['prediction']=lr_probs
-    dr=df1.loc[df1['prediction'] >= 0]
+    dr_harm=df1.loc[df1['pred'] == 0]
+    dr_help=df1.loc[df1['pred'] == 1]
     #values=[]
     #for i in range(df1.shape[0]):
      #   if df1.iloc[i,14]>=0.9:
@@ -428,8 +429,11 @@ def network_analysis(dis):
     #q2="perfect"
     html = ''
     html = addContent(html, header(
-        'Significant Diets', color='black'))
-    html = addContent(html, box(dr['node2'].tolist()))
+        'Harmful Diets', color='black'))
+    html = addContent(html, box(dr_harm['node2'].tolist(),dr_harm['prediction'].tolist()))
+    html = addContent(html, header(
+        'Helpful Diets', color='black'))
+    html = addContent(html, box(dr_harm['node2'].tolist(),dr_help['prediction'].tolist()))
     return f'<div>{html}</div>'
 
 
