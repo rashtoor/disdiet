@@ -400,7 +400,7 @@ def network_analysis(dis):
 
     lr_probs = m.fit(C, d).predict_proba(A)
     # keep probabilities for the positive outcome only
-    #lr_probs = lr_probs[:, 1]
+    lr_probs = lr_probs[:, 1]
     
     df1['prediction']=lr_probs
     dr=df1.loc[df1['prediction'] >= 0]
