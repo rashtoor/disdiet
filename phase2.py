@@ -429,11 +429,11 @@ def network_analysis(dis):
     #q2="perfect"
     html = ''
     html = addContent(html, header(
-        'Harmful Diets for '+dis, color='black'))
-    html = addContent(html, box(dr_harm[col].to_html()))
-    html = addContent(html, header(
-        'Helpful Diets for '+dis, color='black'))
-    html = addContent(html, box(dr_help[col].to_html()))
+        'Diets for '+dis, color='black'))
+    html = addContent(html, box(df1.to_html()))
+    #html = addContent(html, header(
+     #   'Helpful Diets for '+dis, color='black'))
+    #html = addContent(html, box(dr_help[col].to_html()))
     return f'<div>{html}</div>'
 
 
