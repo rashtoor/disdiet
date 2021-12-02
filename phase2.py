@@ -298,7 +298,7 @@ def network_analysis(dis):
     df=pd.merge(df, query11, on=['node1', 'node2'])
     df1=pd.merge(df1, query11, on=['node1', 'node2'])
     
-    query12 = graph.run("""match (m:disease)-[r]-(n:diet) return m as node1, n as node2, toInteger(r.relation) as relation
+    query12 = graph.run("""match (m:disease)-[r]-(n:diet) return m.Name as node1, n.Name as node2, toInteger(r.relation) as relation
     """).to_data_frame()
     df=pd.merge(df, query12, how="left", on=['node1', 'node2'])
     df1=pd.merge(df1, query12, how="left", on=['node1', 'node2'])
