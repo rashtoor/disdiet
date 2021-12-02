@@ -433,7 +433,7 @@ def network_analysis(dis):
     html = addContent(html, box(dr_harm['node2'].tolist()))
     html = addContent(html, header(
         'Helpful Diets', color='black'))
-    html = addContent(html, box(dr_harm['node2'].tolist()))
+    html = addContent(html, box(dr_help['node2'].tolist()))
     return f'<div>{html}</div>'
 
 
