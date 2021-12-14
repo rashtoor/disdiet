@@ -334,6 +334,7 @@ def network_analysis(dis):
     columns=["cooccurrence_sum","MaxTriangles","MinTriangles","MaxCoefficient","MinCoefficient","common_neighbors","preferential_attachment","total_neighbors","distance"]
     columns2=["sp","cc"]
     #columns1=["node1","node2", "label"]
+    #columns3=["relation"]
     A=df1[columns]
     
     C=df[columns]
