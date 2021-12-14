@@ -23,7 +23,7 @@ def network_analysis(dis):
     #graph = Graph("https://15.207.24.149:7473", auth=("neo4j", "dilpreet"))
     graph = Graph("bolt://15.207.24.149:7687", auth=("neo4j", "dilpreet"))
     #query for creating graph for new node like crohns disease
-    graph.run("""Load CSV with headers from "https://docs.google.com/spreadsheets/d/e/2PACX-1vRpVs0bzfJdlzwJFTx2TVQMJIoIsucHjqVTvnw9cL3BCftJUzrzEXNkC7M9vmyD2G51FnVqf6UaXBcy/pub?gid=0&single=true&output=csv" as line merge(n:disease{Name:line.disease}) merge (m:diet{Name:line.diet}) merge (n)-[r:linked_to{cooccurrence:line.link}]->(m)
+    graph.run("""Load CSV with headers from "https://docs.google.com/spreadsheets/d/e/2PACX-1vTqHw_a6MGjddYOhk0DNn1vgV7yNj7bFo4kZVA6IKfXhjrYy4HmZ4bsRWzpRfbjqaZZdCnug1Bc2RTw/pub?gid=0&single=true&output=csv" as line merge(n:disease{Name:line.disease}) merge (m:diet{Name:line.diet}) merge (n)-[r:linked_to{cooccurrence:line.link,relation:line.relation}]->(m)
 """).to_data_frame()
     graph.run("""MATCH (n:disease{Name:$dis})-[r:linked_to]-()
               SET r.cooccurrence = toFloat(r.cooccurrence)""",dis=dis)
