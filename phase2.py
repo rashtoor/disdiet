@@ -306,13 +306,20 @@ def network_analysis(dis):
     df=pd.merge(df, query12, on=['node1', 'node2'])
     df1=pd.merge(df1, query12, on=['node1', 'node2'])
     
+    query13 = graph.run("""match (m:disease{Name:'CD'})-[r]-(n:diet) where n.Name in ['corn/corn gluten','cheese (processed)', 'cheese (cottage)', 'chocolate', 'energy drink', 'nuts'] set r.cc=toInteger(1) 
+    """).to_data_frame()
+    query14 = graph.run("""match (m:disease{Name:'CD'})-[r]-(n:diet) where n.Name not in ['corn/corn gluten','cheese (processed)', 'cheese (cottage)', 'chocolate', 'energy drink', 'nuts'] set r.cc=toInteger(0) 
+    """).to_data_frame()
+    query15 = graph.run("""match (m:disease{Name:'CD'})-[r]-(n:diet) return m.Name as node1, n.Name as node2, r.cc as cc
+    """).to_data_frame()    
+    
+    df1=pd.merge(df1, query15, on=['node1', 'node2'])
     
     
     
     
     
-    
-    se=[0,0,0,1,0,0,0,1,1,1,1,0,0,0,
+    #se=[0,0,0,1,0,0,0,1,1,1,1,0,0,0,
         0,0,0,0,0,0,1]
     #dataset = pd.concat([df, df2])
     sr= [0,0,0,0,0,0,0,1,1,1,
@@ -328,7 +335,7 @@ def network_analysis(dis):
          0,0,0,0,0,0]
     
     df['cc']=sr
-    df1['cc']=se
+    #df1['cc']=se
     
     print(df)
     print("##############################")
