@@ -302,9 +302,9 @@ def network_analysis(dis):
     
     query12 = graph.run("""match (m:disease)-[r]-(n:diet) where toInteger(r.relation)<2 return m.Name as node1, n.Name as node2, toInteger(r.relation) as relation
     """).to_data_frame()
-    df=pd.merge(df, query12, on=['node1', 'node2'])
+    df=pd.merge(df, query12, on=['node1', 'node2'], how="left")
     print(df)
-    df1=pd.merge(df1, query12, on=['node1', 'node2'])
+    df1=pd.merge(df1, query12, on=['node1', 'node2'], how="left")
     
     query13 = graph.run("""match (m:disease{Name:'CD'})-[r]-(n:diet) where n.Name in ['corn/corn gluten','cheese (processed)', 'cheese (cottage)', 'chocolate', 'energy drink', 'nuts'] set r.cc=toInteger(1) 
     """).to_data_frame()
@@ -313,7 +313,7 @@ def network_analysis(dis):
     query15 = graph.run("""match (m:disease{Name:'CD'})-[r]-(n:diet) return m.Name as node1, n.Name as node2, r.cc as cc
     """).to_data_frame()    
     
-    df1=pd.merge(df1, query15, on=['node1', 'node2'])
+    df1=pd.merge(df1, query15, on=['node1', 'node2'], how="left")
     print(df1)
     
     
