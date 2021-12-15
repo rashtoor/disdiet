@@ -299,11 +299,11 @@ def network_analysis(dis):
     df=pd.merge(df, query11, on=['node1', 'node2'])
     df1=pd.merge(df1, query11, on=['node1', 'node2'])
     
-    print(df1)
     
     query12 = graph.run("""match (m:disease)-[r]-(n:diet) where toInteger(r.relation)<2 return m.Name as node1, n.Name as node2, toInteger(r.relation) as relation
     """).to_data_frame()
     df=pd.merge(df, query12, on=['node1', 'node2'])
+    print(df)
     df1=pd.merge(df1, query12, on=['node1', 'node2'])
     
     query13 = graph.run("""match (m:disease{Name:'CD'})-[r]-(n:diet) where n.Name in ['corn/corn gluten','cheese (processed)', 'cheese (cottage)', 'chocolate', 'energy drink', 'nuts'] set r.cc=toInteger(1) 
@@ -314,6 +314,7 @@ def network_analysis(dis):
     """).to_data_frame()    
     
     df1=pd.merge(df1, query15, on=['node1', 'node2'])
+    print(df1)
     
     
     
@@ -337,9 +338,9 @@ def network_analysis(dis):
     df['cc']=sr
     #df1['cc']=se
     
-    print(df)
+    #print(df)
     print("##############################")
-    print(df1)
+    #print(df1)
     df.to_csv('features1.csv')
     df1.to_csv('features2.csv')
     
