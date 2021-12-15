@@ -331,8 +331,8 @@ def network_analysis(dis):
     print(df)
     print("##############################")
     print(df1)
-    df.to_csv('disdiet\\features1.csv')
-    df1.to_csv('disdiet\\features2.csv')
+    df.to_csv('features1.csv')
+    df1.to_csv('features2.csv')
     
 
     columns=["cooccurrence_sum","MaxTriangles","MinTriangles","MaxCoefficient","MinCoefficient","common_neighbors","preferential_attachment","total_neighbors","distance"]
