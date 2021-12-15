@@ -308,7 +308,7 @@ def network_analysis(dis):
     
     query13 = graph.run("""match (m:disease{Name:'CD'})-[r]-(n:diet) where n.Name in ['corn/corn gluten','cheese (processed)', 'cheese (cottage)', 'chocolate', 'energy drink', 'nuts'] set r.cc=toInteger(1) 
     """).to_data_frame()
-    query14 = graph.run("""match (m:disease{Name:'CD'})-[r]-(n:diet) where n.Name not in ['corn/corn gluten','cheese (processed)', 'cheese (cottage)', 'chocolate', 'energy drink', 'nuts'] set r.cc=toInteger(0) 
+    query14 = graph.run("""match (m:disease{Name:'CD'})-[r]-(n:diet) where not n.Name in ['corn/corn gluten','cheese (processed)', 'cheese (cottage)', 'chocolate', 'energy drink', 'nuts'] set r.cc=toInteger(0) 
     """).to_data_frame()
     query15 = graph.run("""match (m:disease{Name:'CD'})-[r]-(n:diet) return m.Name as node1, n.Name as node2, r.cc as cc
     """).to_data_frame()    
