@@ -2,7 +2,7 @@ from py2neo import Graph
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import StratifiedKFold
 from imblearn.pipeline import Pipeline as imbpipeline
-import pandas as pd
+import pandas as pd, pd
 from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import roc_curve, auc
 from collections import Counter
@@ -23,10 +23,10 @@ def network_analysis(dis):
     #graph = Graph("https://15.207.24.149:7473", auth=("neo4j", "dilpreet"))
     graph = Graph("bolt://15.207.24.149:7687", auth=("neo4j", "dilpreet"))
     #query for creating graph for new node like crohns disease
-    graph.run("""Load CSV with headers from "https://docs.google.com/spreadsheets/d/e/2PACX-1vSab3yrUmdt0ov77T3h555Ow6YdtncsfUZzyllLKAkgOOH6iL3n-2C0JT8qUODvnqnZDzFGAcfctQBR/pub?gid=0&single=true&output=csv" as line merge(n:disease{Name:line.disease}) merge (m:diet{Name:line.diet}) merge (n)-[r:linked_to{cooccurrence:line.link,relation:line.relation}]->(m)
+    graph.run("""Load CSV with headers from "https://docs.google.com/spreadsheets/d/e/2PACX-1vSab3yrUmdt0ov77T3h555Ow6YdtncsfUZzyllLKAkgOOH6iL3n-2C0JT8qUODvnqnZDzFGAcfctQBR/pub?gid=0&single=true&output=csv" as line merge(n:disease{Name:line.disease}) merge (m:diet{Name:line.diet}) merge (n)-[r:linked_to{cooccurrence:toFloat(line.link),relation:line.relation}]->(m)
 """).to_data_frame()
-    graph.run("""MATCH (n:disease{Name:$dis})-[r:linked_to]-()
-              SET r.cooccurrence = toFloat(r.cooccurrence)""",dis=dis)
+    #graph.run("""MATCH (n:disease{Name:$dis})-[r:linked_to]-()
+     #         SET r.cooccurrence = toFloat(r.cooccurrence)""",dis=dis)
     existing_links1 = graph.run("""MATCH (m:disease)-[r:linked_to]->(n:diet) 
                                       where m.Name='IBD'
                                       RETURN m.Name as node1, n.Name as node2
@@ -42,9 +42,9 @@ def network_analysis(dis):
     
 
     pdList1 = [existing_links1,existing_links2] 
-    #pdList2 =  
+    pdList2 = [pred_existing_links] 
     df = pd.concat(pdList1) #train_test
-    df1= [pred_existing_links] #pred
+    df1= pd.concat(pdList2) 
     
 
 
