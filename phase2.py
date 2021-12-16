@@ -42,9 +42,9 @@ def network_analysis(dis):
     
 
     pdList1 = [existing_links1,existing_links2] 
-    pdList2 = [pred_existing_links] 
+    #pdList2 =  
     df = pd.concat(pdList1) #train_test
-    df1=pd.concat(pdList2) #pred
+    df1= [pred_existing_links] #pred
     
 
 
