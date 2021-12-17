@@ -432,8 +432,8 @@ def network_analysis(dis):
     #print(df1)
     #df1[col].to_csv('E:\\PhD\\main_work\\1results_phase1.csv')
 
-    #graph.run("""MATCH (n:disease{Name:$dis})-[r:linked_to]-() delete r""",dis=dis)
-    #graph.run("""MATCH (n:disease{Name:$dis}) delete n""",dis=dis)
+    graph.run("""MATCH (n:disease{Name:$dis})-[r:linked_to]-() delete r""",dis=dis)
+    graph.run("""MATCH (n:disease{Name:$dis}) delete n""",dis=dis)
 
     # Formatting in html
     #q2="perfect"
