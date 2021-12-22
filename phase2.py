@@ -25,7 +25,7 @@ app = Flask(__name__)
 
 password = os.getenv("NEO4J_PASSWORD")
 
-driver = GraphDatabase.driver('neo4j@bolt+s://15.207.24.149:7687',auth=basic_auth("neo4j", "dilpreet"))
+driver = GraphDatabase.driver('bolt://15.207.24.149:7687',auth=basic_auth("neo4j", "dilpreet"))
 
 
 def get_db():
