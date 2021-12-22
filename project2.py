@@ -1,5 +1,4 @@
-from phase2 import network_analysis
-from phase2 import get_db
+from phase3 import network_analysis
 
 #from lambda1 import network_analysis
 from flask import Flask, render_template, request
@@ -46,31 +45,6 @@ def home():
     return render_template('rnn_index.html', form=form)
 
 
-
-@app.route("/graph")
-def get_graph():
-    db = get_db()
-    results = db.run("MATCH (m:disease)-[:linked_to]-(a:diet) "
-                                                         "RETURN m.Name as disease, collect(a.Name) as diet ")
-                                                         
-    nodes = []
-    rels = []
-    i = 0
-    for record in results:
-        nodes.append({"Name": record["disease"], "label": "disease"})
-        target = i
-        i += 1
-        for Name in record['diet']:
-            diet1 = {"Name": Name, "label": "diet"}
-            try:
-                source = nodes.index(diet1)
-            except ValueError:
-                nodes.append(diet1)
-                source = i
-                i += 1
-            rels.append({"source": source, "target": target})
-    return Response(dumps({"nodes": nodes, "links": rels}),
-                    mimetype="application/json")
 
 
 
