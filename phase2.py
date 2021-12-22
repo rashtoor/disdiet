@@ -15,13 +15,28 @@ from sklearn.preprocessing import OneHotEncoder
 from imblearn.over_sampling import SMOTE
 from imblearn.under_sampling import RandomUnderSampler
 from imblearn.pipeline import Pipeline
+import os
+from json import dumps
+import logging
+from flask import Flask, g, Response, request, render_template
+from neo4j import GraphDatabase, basic_auth
+
+app = Flask(__name__)
+
+password = os.getenv("NEO4J_PASSWORD")
+
+driver = GraphDatabase.driver('https://15.207.24.149:7473',auth=basic_auth("neo4j", "dilpreet"))
 
 
+def get_db():
+    if not hasattr(g, 'neo4j_db'):
+        g.neo4j_db = driver.session()
+    return g.neo4j_db
 
 def network_analysis(dis):
-    
+    graph = get_db()
     #graph = Graph("https://15.207.24.149:7473", auth=("neo4j", "dilpreet"))
-    graph = Graph("bolt://15.207.24.149:7687", auth=("neo4j", "dilpreet"))
+    #graph = Graph("bolt://15.207.24.149:7687", auth=("neo4j", "dilpreet"))
     #query for creating graph for new node like crohns disease
     graph.run("""Load CSV with headers from "https://docs.google.com/spreadsheets/d/e/2PACX-1vSab3yrUmdt0ov77T3h555Ow6YdtncsfUZzyllLKAkgOOH6iL3n-2C0JT8qUODvnqnZDzFGAcfctQBR/pub?gid=0&single=true&output=csv" as line merge(n:disease{Name:line.disease}) merge (m:diet{Name:line.diet}) merge (n)-[r:linked_to{cooccurrence:toFloat(line.link),relation:line.relation}]->(m)
 """).to_data_frame()
