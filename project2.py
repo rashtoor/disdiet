@@ -45,6 +45,34 @@ def home():
     return render_template('rnn_index.html', form=form)
 
 
+
+@app.route("/graph")
+def get_graph():
+    db = get_db()
+    results = db.run("MATCH (m:disease)-[:linked_to]-(a:diet) "
+                                                         "RETURN m.Name as disease, collect(a.Name) as diet ")
+                                                         
+    nodes = []
+    rels = []
+    i = 0
+    for record in results:
+        nodes.append({"Name": record["disease"], "label": "disease"})
+        target = i
+        i += 1
+        for Name in record['diet']:
+            diet1 = {"Name": Name, "label": "diet"}
+            try:
+                source = nodes.index(diet1)
+            except ValueError:
+                nodes.append(diet1)
+                source = i
+                i += 1
+            rels.append({"source": source, "target": target})
+    return Response(dumps({"nodes": nodes, "links": rels}),
+                    mimetype="application/json")
+
+
+
 if __name__ == "__main__":
     print(("* Loading Keras model and Flask starting server..."
            "please wait until server has fully started"))
