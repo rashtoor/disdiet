@@ -76,9 +76,9 @@ def home():
         if seed != ' ':
             return render_template('random.html',input=network_analysis(dis=seed))
         else:
-            return render_template('rnn_index.html', form=form)
+            return render_template('rnn_index.html')
             # Send template information to index.html
-    return render_template('rnn_index.html')
+    return render_template('rnn_index.html', form=form)
 
 @app.route("/graph")
 def get_graph():
