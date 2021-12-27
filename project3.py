@@ -28,6 +28,18 @@ def close_db(error):
     if hasattr(g, 'neo4j_db'):
         g.neo4j_db.close()
 
+def serialize_disease(disease):
+    return {
+        'name': disease['Name'],
+
+    }
+
+
+def serialize_cast(diet):
+    return {
+        'name': diet[1],
+        
+    }
 
 
 class ReusableForm(Form):
@@ -63,8 +75,10 @@ def home():
         # seed is the disease that person has selected, so now we read csv, create its graph and apply all network analysis and return significant diets using a function
         if seed != ' ':
             return render_template('random.html',input=network_analysis(dis=seed))
+        else:
+            return render_template('rnn_index.html', form=form)
             # Send template information to index.html
-    return render_template('rnn_index.html', form=form)
+    return render_template('rnn_index.html')
 
 @app.route("/graph")
 def get_graph():
