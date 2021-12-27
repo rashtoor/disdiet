@@ -102,9 +102,10 @@ def get_graph():
                 source = i
                 i += 1
             rels.append({"source": source, "target": target})
-    return Response(dumps({"nodes": nodes, "links": rels}),
+            form= Response(dumps({"nodes": nodes, "links": rels}),
                     mimetype="application/json")
 
+    return form
 
 
 
