@@ -2,14 +2,12 @@
 <html>
 
 <header>
-    <title>DAPNEML-Diets
-    </title>
-
+    <title>{% block title %} {% endblock %} - DAPNEML-Diets</title>
     <link rel="stylesheet" href="/static/css/main.css">
     <link rel="shortcut icon" href="/static/lstm.ico">
     <ul>
         <li><a href="/">Home</a></li>
-	<li><a href="/graph">Graph</a></li>
+	<li><a href="{{ url_for('graph') }}">Graph</a></li>
     </ul>
 </header>
 
