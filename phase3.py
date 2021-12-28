@@ -424,7 +424,7 @@ def network_analysis(dis):
     #df1['prediction']=values
     #print(df1['prediction'])
     #lr = pd.DataFrame(values, columns = ['node1','node2','prediction'])
-    col=["node2","prediction","probability"]
+    col=["node2","probability"]
     #final=pd.merge(df1[col], lr, on=['node1', 'node2'])
     #ans=pd.concat(final)
     #print(ans)
@@ -444,6 +444,7 @@ def network_analysis(dis):
     html = addContent(html, header(
         'Helpful Diets for '+dis, color='black'))
     html = addContent(html, box(dr_help[col].to_html()))
+    html = addContent(html, a1)
     return f'<div>{html}</div>'
 
 
