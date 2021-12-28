@@ -10,33 +10,7 @@
 </head>
 
 <body>
-  
-
-  
-  <div class="container">
-    <h1>
-      <center>Predicting significant diets for a disease</center>
-    </h1>
-
-    {% block content %}
-    {% for message in form.seed.errors %}
-    <div class="flash">{{ message }}</div>
-    {% endfor %}
-
-
-    <form method=post>
-
-      {{ form.seed.label }}
-      {{ form.seed }}
-
-
-      {{ form.submit }}
-    </form>
-    {% endblock %}
-
-  </div>
-	
-<style type="text/css">
+  <style type="text/css">
     .link {
   stroke: #ccc;
 }
@@ -50,7 +24,34 @@
 .node { fill: #BBB;
 height: 70px;
   width: 25%; }
-</style>
+ </style>
+
+  {% block content %}
+  <div class="container">
+    <h1>
+      <center>Predicting significant diets for a disease</center>
+    </h1>
+
+    
+    {% for message in form.seed.errors %}
+    <div class="flash">{{ message }}</div>
+    {% endfor %}
+
+
+    <form method=post>
+
+      {{ form.seed.label }}
+      {{ form.seed }}
+
+
+      {{ form.submit }}
+    </form>
+    
+
+  </div>
+  {% endblock %}
+	
+
 
   
   
