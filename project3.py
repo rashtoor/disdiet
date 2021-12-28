@@ -74,7 +74,7 @@ def home():
         
         # seed is the disease that person has selected, so now we read csv, create its graph and apply all network analysis and return significant diets using a function
         if seed != ' ':
-            return render_template('random.html',input=network_analysis(dis=seed))
+            return render_template('start1.html',input=network_analysis(dis=seed))
         else:
             return render_template('random.html')
             # Send template information to index.html
