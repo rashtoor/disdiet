@@ -11,7 +11,11 @@
 <div id="graph">
 </div>
 
-
+<div class="container">
+        {% block content %}
+        {{input|safe}}
+        {% endblock %}
+    </div>
 
 
 <style type="text/css">
