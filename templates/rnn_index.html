@@ -26,13 +26,13 @@ height: 70px;
   width: 25%; }
  </style>
 
-  {% block content %}
+  
   <div class="container">
     <h1>
       <center>Predicting significant diets for a disease</center>
     </h1>
 
-    
+    {% block content %}
     {% for message in form.seed.errors %}
     <div class="flash">{{ message }}</div>
     {% endfor %}
@@ -47,9 +47,13 @@ height: 70px;
       {{ form.submit }}
     </form>
     
-
-  </div>
   {% endblock %}
+  </div>
+  <div class="graph">
+	  <h1>
+      <center>This is the graph</center>
+    </h1>
+  </div>
 	
 
 
