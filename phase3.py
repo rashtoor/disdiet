@@ -437,7 +437,7 @@ def network_analysis(dis):
 
     # Formatting in html
     #q2="perfect"
-    html = ''
+    html = f'{% extends 'rnn_index.html' %} {% block content %}'
     html = addContent(html, header(
         'Harmful Diets for '+dis, color='black'))
     html = addContent(html, box(dr_harm[col].to_html()))
