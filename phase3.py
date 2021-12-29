@@ -441,6 +441,7 @@ def network_analysis(dis):
     #file = io.open("/home/ubuntu/disdiet/templates/rnn_index.html", "r", encoding='utf-8')
     #q=file.read()
     #html = '{% extends' + q + '%} {% block content %}'
+    html=''
     html = addContent(html, header(
         'Harmful Diets for '+dis, color='black'))
     html = addContent(html, box(dr_harm[col].to_html()))
