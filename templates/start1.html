@@ -18,6 +18,20 @@
     .rightdiv
          {
          float: left;
+	.link {
+         stroke: #ccc;
+              }
+
+        .node text {
+  	pointer-events: none;
+  	font: 50px sans-serif;
+  	color: White;
+		}
+
+
+	.node { fill: #BBB;
+	height: 70px;
+  	width: 25%; }
          }
          div{
          padding : 1%;
@@ -29,32 +43,15 @@
 </head>
 
 <body>
-<div id="graph">
-</div>
 
-<div class="container">
+
+<div class="leftdiv">
         {% block content %}
         {{input|safe}}
         {% endblock %}
     </div>
 
-
-<style type="text/css">
-    .link {
-  stroke: #ccc;
-}
-
-.node text {
-  pointer-events: none;
-  font: 50px sans-serif;
-  color: White;
-}
-
-
-.node { fill: #BBB;
-height: 70px;
-  width: 25%; }
-</style>
+<div id="rightdiv">
 
 
 
@@ -100,5 +97,6 @@ height: 70px;
         });
     });
 </script>
+</div>
 </body>
 </html>
