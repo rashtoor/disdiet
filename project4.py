@@ -104,7 +104,7 @@ def get_graph():
             rels.append({"source": source, "target": target})
             form= Response(dumps({"nodes": nodes, "links": rels}),
                     mimetype="application/json")
-     return render_template('rnn_index.html', form=form)
+    return render_template('rnn_index.html', form=form)
 
 
 
