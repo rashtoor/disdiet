@@ -437,7 +437,7 @@ def network_analysis(dis):
 
     # Formatting in html
     #q2="perfect"
-    file = codecs.open("rnn_index.html", "r", "utf-8")
+    file = io.open("rnn_index.html", "r", "utf-8")
     q=file.read()
     html = '{% extends' + q + '%} {% block content %}'
     html = addContent(html, header(
