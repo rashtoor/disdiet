@@ -1,19 +1,20 @@
 <!DOCTYPE html>
-<html>
-
-<header>
-    <title>{% block title %} {% endblock %} - DAPNEML-Diets</title>
-    <link rel="stylesheet" href="/static/css/main.css">
-    <link rel="shortcut icon" href="/static/lstm.ico">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://neo4j-documentation.github.io/developer-resources/language-guides/assets/css/main.css">
+    <title>DAPNEML</title>
     <ul>
         <li><a href="/">Home</a></li>
 	<li><a href="{{ url_for('get_graph') }}">Graph</a></li>
     </ul>
-</header>
+</head>
+
 
 <body>
     <div id="graph">
-	var graph = JSON.parse('{{ graph | tojson | safe}}');    
+	#var graph = JSON.parse('{{ graph | tojson | safe}}');    
     <h1>
       <center>This is the graph</center>
     </h1>
