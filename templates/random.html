@@ -13,17 +13,17 @@
 
 
 <body>
-    <div id="graph">
-        {% block content %}
-        {{graph}}
-        {% endblock %}
-    </div>
+   
     <div class="container">
         {% block content %}
         {{input|safe}}
         {% endblock %}
     </div>
-    
+	
+     <div id="graph">
+        {{graph}}
+    </div>
+	
 <style type="text/css">
     .link {
   stroke: #ccc;
