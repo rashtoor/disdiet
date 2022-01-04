@@ -103,8 +103,8 @@ def get_graph():
                 i += 1
             rels.append({"source": source, "target": target})
    
-    return render_template('work.html', Response(dumps({"nodes": nodes, "links": rels}),
-                    mimetype="application/json"))
+   return Response(dumps({"nodes": nodes, "links": rels}),
+                    mimetype="application/json")
 
 
 
