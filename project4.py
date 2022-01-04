@@ -104,7 +104,7 @@ def get_graph():
             rels.append({"source": source, "target": target})
             graph= Response(dumps({"nodes": nodes, "links": rels}),
                     mimetype="application/json")
-    return render_template('random.html',graph=graph)
+    return render_template('work.html',graph=graph)
 
 
 
