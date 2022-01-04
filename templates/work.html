@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<header>
+	<link rel="stylesheet" href="/static/css/main.css">
+        <link rel="shortcut icon" href="/static/lstm.ico">
+	<ul>
+        <li><a href="/">Home</a></li>
+	
+        </ul>
+</header>
+
+
+<body>
+    <div id=graph>
+	    
+    <h1>
+      <center>This is the graph</center>
+    </h1>
+</div>
+    
+    
+<style type="text/css">
+    .link {
+  stroke: #ccc;
+}
+
+.node text {
+  pointer-events: none;
+  font: 25px sans-serif;
+  color: White;
+}
+
+
+.node { fill: #BBB;
+height: 35px;
+  width: 15%; }
+</style>
+
+<script type="text/javascript">
+    
+    const width = 800, height = 800;
+
+    const force = d3.layout.force()
+            .charge(-200).linkDistance(30).size([width, height]);
+
+    const svg = d3.select("#graph").append("svg")
+            .attr("width", "100%").attr("height", "100%")
+            .attr("pointer-events", "all");
+
+    d3.json("/graph", function(error, graph) {
+		if (error) return;
+
+        force.nodes(graph.nodes).links(graph.links).start();
+
+        const link = svg.selectAll(".link")
+                .data(graph.links).enter()
+                .append("line").attr("class", "link");
+
+        const node = svg.selectAll(".node")
+                .data(graph.nodes).enter()
+                .append("circle")
+                .attr("class", function (d) { return "node "+d.label })
+                .attr("r", 10)
+                .call(force.drag);
+
+        // html title attribute
+        node.append("title")
+                .text(function (d) { return d.title; })
+
+        // force feed algo ticks
+        force.on("tick", function() {
+            link.attr("x1", function(d) { return d.source.x; })
+                    .attr("y1", function(d) { return d.source.y; })
+                    .attr("x2", function(d) { return d.target.x; })
+                    .attr("y2", function(d) { return d.target.y; });
+
+            node.attr("cx", function(d) { return d.x; })
+                    .attr("cy", function(d) { return d.y; });
+        });
+    });
+</script>
+    
+    
+</body>
+
+</html>
