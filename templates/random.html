@@ -13,7 +13,11 @@
 
 
 <body>
-    
+    <div id="graph">
+        {% block content %}
+        {{graph}}
+        {% endblock %}
+    </div>
     <div class="container">
         {% block content %}
         {{input|safe}}
@@ -33,16 +37,16 @@
 
 
 .node { fill: #BBB;
-height: 35px;
+height: 15px;
   width: 15%; }
 </style>
 
 <script type="text/javascript">
     
-    const width = 800, height = 800;
+    const width = 400, height = 400;
 
     const force = d3.layout.force()
-            .charge(-200).linkDistance(30).size([width, height]);
+            .charge(-100).linkDistance(15).size([width, height]);
 
     const svg = d3.select("#graph").append("svg")
             .attr("width", "100%").attr("height", "100%")
