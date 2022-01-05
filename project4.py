@@ -90,7 +90,7 @@ def g():
     # On form entry and all conditions met
     if request.method == 'POST' and form2.validate():
         # Extract information
-        seed2 = request.form2['seed']
+        seed2 = request.form['seed']
         
         # seed is the disease that person has selected, so now we read csv, create its graph and apply all network analysis and return significant diets using a function
         if seed2 != ' ':
