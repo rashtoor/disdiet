@@ -23,8 +23,14 @@ from flask import Flask, g, Response, request, render_template
 
 def na(dis):
     
+   
     
     graph = Graph("bolt://15.207.24.149:7687", auth=("neo4j", "dilpreet"))
+    
+     graph.run("""MATCH (n:disease{Name:$dis})-[r:linked_to]-() delete r""",dis=dis)
+    graph.run("""MATCH (n:disease{Name:$dis}) delete n""",dis=dis)
+    
+    
     #query for creating graph for new node like crohns disease
     graph.run("""Load CSV with headers from "https://docs.google.com/spreadsheets/d/e/2PACX-1vSab3yrUmdt0ov77T3h555Ow6YdtncsfUZzyllLKAkgOOH6iL3n-2C0JT8qUODvnqnZDzFGAcfctQBR/pub?gid=0&single=true&output=csv" as line merge(n:disease{Name:line.disease}) merge (m:diet{Name:line.diet}) merge (n)-[r:linked_to{cooccurrence:toFloat(line.link),relation:line.relation}]->(m)
 """).to_data_frame()
