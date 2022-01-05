@@ -27,7 +27,7 @@ def na(dis):
     graph.run("""Load CSV with headers from "https://docs.google.com/spreadsheets/d/e/2PACX-1vSab3yrUmdt0ov77T3h555Ow6YdtncsfUZzyllLKAkgOOH6iL3n-2C0JT8qUODvnqnZDzFGAcfctQBR/pub?gid=0&single=true&output=csv" as line merge(n:disease{Name:line.disease}) merge (m:diet{Name:line.diet}) merge (n)-[r:linked_to{cooccurrence:toFloat(line.link),relation:line.relation}]->(m)
 """).to_data_frame()
     
-    results = graph.run("""MATCH (m:disease)-[r:linked_to]->(n:diet) RETURN m.Name as disease, collect(a.Name) as diet""")
+    results = graph.run("""MATCH (m:disease)-[r:linked_to]->(n:diet) RETURN m.Name as disease, collect(n.Name) as diet""")
     
                                                          
     nodes = []
