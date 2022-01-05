@@ -54,17 +54,17 @@ height: 70px;
             .attr("width", "100%").attr("height", "100%")
             .attr("pointer-events", "all");
 
-    d3.json("/g", function(error, graph) {
+    d3.json("/g", function(error, g) {
 		if (error) return;
 
-        force.nodes(graph.nodes).links(graph.links).start();
+        force.nodes(g.nodes).links(g.links).start();
 
         const link = svg.selectAll(".link")
-                .data(graph.links).enter()
+                .data(g.links).enter()
                 .append("line").attr("class", "link");
 
         const node = svg.selectAll(".node")
-                .data(graph.nodes).enter()
+                .data(g.nodes).enter()
                 .append("circle")
                 .attr("class", function (d) { return "node "+d.label })
                 .attr("r", 10)
