@@ -79,6 +79,27 @@ def home():
             # Send template information to index.html
     return render_template('rnn_index.html', form=form)
 
+
+@app.route("/g", methods=['GET', 'POST'])
+def g():
+    """Graph page of app with form"""
+    # Create form
+    form2 = ReusableForm(request.form2)
+
+    # On form entry and all conditions met
+    if request.method == 'POST' and form2.validate():
+        # Extract information
+        seed2 = request.form2['seed']
+        
+        # seed is the disease that person has selected, so now we read csv, create its graph and apply all network analysis and return significant diets using a function
+        if seed2 != ' ':
+            return render_template('gg.html',input=na(dis=seed2))
+        
+            # Send template information to index.html
+    return render_template('rnn_index.html', form2=form2)
+
+
+
 @app.route("/graph")
 def get_graph():
     db = get_db()
