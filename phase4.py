@@ -27,56 +27,26 @@ def na(dis):
     graph.run("""Load CSV with headers from "https://docs.google.com/spreadsheets/d/e/2PACX-1vSab3yrUmdt0ov77T3h555Ow6YdtncsfUZzyllLKAkgOOH6iL3n-2C0JT8qUODvnqnZDzFGAcfctQBR/pub?gid=0&single=true&output=csv" as line merge(n:disease{Name:line.disease}) merge (m:diet{Name:line.diet}) merge (n)-[r:linked_to{cooccurrence:toFloat(line.link),relation:line.relation}]->(m)
 """).to_data_frame()
     
-    query1 = graph.run("""MATCH (m:disease)-[r:linked_to]->(n:diet) RETURN m,n,r""").to_data_frame()
+    results = graph.run("""MATCH (m:disease)-[r:linked_to]->(n:diet) RETURN m.Name as disease, collect(a.Name) as diet""")
     
-    
-
-
-
-    
-
-
-    
-    
-    
-
-
+                                                         
+    nodes = []
+    rels = []
+    i = 0
+    for record in results:
+        nodes.append({"Name": record["disease"], "label": "disease"})
+        target = i
+        i += 1
+        for Name in record['diet']:
+            diet1 = {"Name": Name, "label": "diet"}
+            try:
+                source = nodes.index(diet1)
+            except ValueError:
+                nodes.append(diet1)
+                source = i
+                i += 1
+            rels.append({"source": source, "target": target})
+   
+    return Response(dumps({"nodes": nodes, "links": rels}),mimetype="application/json")
 
    
-
-    # Formatting in html
-    #q2="perfect"
-    #file = io.open("/home/ubuntu/disdiet/templates/rnn_index.html", "r", encoding='utf-8')
-    #q=file.read()
-    #html = '{% extends' + q + '%} {% block content %}'
-    html=''
-    html = addContent(html, header(
-        'Harmful Diets for '+dis, color='black'))
-    html = addContent(html, box(dr_harm[col].to_html()))
-    html = addContent(html, header(
-        'Helpful Diets for '+dis, color='black'))
-    html = addContent(html, box(dr_help[col].to_html()))
-   
-    return f'<div>{html}</div>'
-
-
-def header(text, color='black'):
-    """Create an HTML header"""
-
-    raw_html = f'<h1 style="margin-top:12px;color: {color};font-size:54px"><center>' + str(
-            text) + '</center></h1>'
-    return raw_html
-
-
-def box(text):
-    """Create an HTML box of text"""
-    raw_html = '<div style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 28px;">' + str(
-            text) + '</div>'
-    return raw_html
-
-
-def addContent(old_html, raw_html):
-    """Add html content together"""
-
-    old_html += raw_html
-    return old_html
