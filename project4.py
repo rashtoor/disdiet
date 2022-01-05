@@ -94,7 +94,7 @@ def g():
         
         # seed is the disease that person has selected, so now we read csv, create its graph and apply all network analysis and return significant diets using a function
         if seed2 != ' ':
-            return render_template('gg.html',input=na(dis=seed2))
+            return render_template('gg.html',input=make_response(jsonify(na(dis=seed2)), 200))
         
             # Send template information to index.html
     return render_template('rnn_index.html', form=form2)
