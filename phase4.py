@@ -27,7 +27,7 @@ def na(dis):
     
     graph = Graph("bolt://15.207.24.149:7687", auth=("neo4j", "dilpreet"))
     
-     graph.run("""MATCH (n:disease{Name:$dis})-[r:linked_to]-() delete r""",dis=dis)
+    graph.run("""MATCH (n:disease{Name:$dis})-[r:linked_to]-() delete r""",dis=dis)
     graph.run("""MATCH (n:disease{Name:$dis}) delete n""",dis=dis)
     
     
