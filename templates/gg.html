@@ -33,7 +33,7 @@ height: 70px;
 </style>
 
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="https://d3js.org/d3.v3.min.js" type="text/javascript"></script>
+<script src="https://d3js.org/d3.v5.min.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(function () {
         
@@ -53,17 +53,16 @@ height: 70px;
     const svg = d3.select("#g").append("svg")
             .attr("width", "100%").attr("height", "100%")
             .attr("pointer-events", "all");
+	
+    d3.json("/g")
+    .then(function(g) {
+    force.nodes(g.nodes).links(g.links).start();
 
-    d3.json("/g", function(error, g) {
-		if (error) return;
-
-        force.nodes(g.nodes).links(g.links).start();
-
-        const link = svg.selectAll(".link")
+    const link = svg.selectAll(".link")
                 .data(g.links).enter()
                 .append("line").attr("class", "link");
 
-        const node = svg.selectAll(".node")
+    const node = svg.selectAll(".node")
                 .data(g.nodes).enter()
                 .append("circle")
                 .attr("class", function (d) { return "node "+d.label })
@@ -83,8 +82,13 @@ height: 70px;
 
             node.attr("cx", function(d) { return d.x; })
                     .attr("cy", function(d) { return d.y; });
-        });
-    });
+		});
+
+  })
+  .catch(function(error) {
+    return;
+  });
 </script>
+	
 </body>
 </html>
