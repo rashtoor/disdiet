@@ -85,7 +85,7 @@ def home():
 def g():
     """Graph page of app with form"""
     # Create form
-    form2 = ReusableForm(request.form2)
+    form2 = ReusableForm(request.form)
 
     # On form entry and all conditions met
     if request.method == 'POST' and form2.validate():
@@ -97,7 +97,7 @@ def g():
             return render_template('gg.html',input=na(dis=seed2))
         
             # Send template information to index.html
-    return render_template('rnn_index.html', form2=form2)
+    return render_template('rnn_index.html', form=form2)
 
 
 
