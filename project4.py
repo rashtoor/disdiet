@@ -92,7 +92,7 @@ def g():
     if request.method == 'POST' and form2.validate():
         # Extract information
         seed2 = request.form['seed']
-        
+        print(seed2)
         # seed is the disease that person has selected, so now we read csv, create its graph and apply all network analysis and return significant diets using a function
         if seed2 != ' ':
             return render_template('gg.html',input=make_response(jsonify(na(dis=seed2)), 200))
