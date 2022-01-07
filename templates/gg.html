@@ -11,8 +11,11 @@
     
 	
     <div class="container" id="g">
-    
-</div>
+   
+        {% block content %}
+        {{input|safe}}
+        {% endblock %}
+    </div>
 
 
 <style type="text/css">
