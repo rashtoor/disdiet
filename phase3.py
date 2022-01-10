@@ -444,10 +444,10 @@ def network_analysis(dis):
     html=''
     html = addContent(html, header(
         'Harmful Diets for '+dis, color='black'))
-    html = addContent(html, box(dr_harm[col].to_html(header="false")))
+    html = addContent(html, box(dr_harm[col].to_html(header=False, index=False)))
     html = addContent(html, header(
         'Helpful Diets for '+dis, color='black'))
-    html = addContent(html, box(dr_help[col].to_html(header="false")))
+    html = addContent(html, box(dr_help[col].to_html(header=False, index=False)))
    
     return f'<div>{html}</div>'
 
