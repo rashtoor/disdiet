@@ -461,7 +461,7 @@ def header(text, color='black'):
             text) + '</center></h1>'
     return raw_html
 
-  def but(df):
+def but(df):
     radio = [] # empty array to push the rows of input tags 
     for val in df[0]:
       radio.append('<input type="radio" value="{}">'.format(val))
