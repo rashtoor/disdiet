@@ -34,33 +34,28 @@ height: 70px;
 </style>
 
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="https://d3js.org/d3.v5.min.js" type="text/javascript"></script>
+script src="https://d3js.org/d3.v3.min.js" type="text/javascript"></script>
 <script type="text/javascript">
-    $(function (input) {
-        
-        var g = JSON.parse(input)
-        
-
-       
-    
-
     const width = 800, height = 800;
-    
+
     const force = d3.layout.force()
             .charge(-200).linkDistance(30).size([width, height]);
 
     const svg = d3.select("#g").append("svg")
             .attr("width", "100%").attr("height", "100%")
             .attr("pointer-events", "all");
-	
-    force.nodes(g.nodes).links(g.links).start();
 
-    const link = svg.selectAll(".link")
-                .data(g.links).enter()
+    d3.json("/g", function(error, graph) {
+		if (error) return;
+
+        force.nodes(graph.nodes).links(graph.links).start();
+
+        const link = svg.selectAll(".link")
+                .data(graph.links).enter()
                 .append("line").attr("class", "link");
 
-    const node = svg.selectAll(".node")
-                .data(g.nodes).enter()
+        const node = svg.selectAll(".node")
+                .data(graph.nodes).enter()
                 .append("circle")
                 .attr("class", function (d) { return "node "+d.label })
                 .attr("r", 10)
@@ -79,10 +74,8 @@ height: 70px;
 
             node.attr("cx", function(d) { return d.x; })
                     .attr("cy", function(d) { return d.y; });
-		});
-
- 
-	    })
+        });
+    });
 </script>
 	
 </body>
