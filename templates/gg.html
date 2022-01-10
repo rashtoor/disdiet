@@ -12,9 +12,7 @@
 	
     <div class="container" id="g">
    
-        {% block content %}
-        {{input|safe}}
-        {% endblock %}
+        
     </div>
 
 
@@ -38,18 +36,16 @@ height: 70px;
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="https://d3js.org/d3.v5.min.js" type="text/javascript"></script>
 <script type="text/javascript">
-    $(function () {
+    $(function (input) {
         
-        
+        var g = JSON.parse(input)
         
 
        
-    })
-</script>
+    
 
-<script type="text/javascript">
     const width = 800, height = 800;
-    const g = {{input}}
+    
     const force = d3.layout.force()
             .charge(-200).linkDistance(30).size([width, height]);
 
@@ -57,8 +53,6 @@ height: 70px;
             .attr("width", "100%").attr("height", "100%")
             .attr("pointer-events", "all");
 	
-    d3.json("/g")
-    .then(function(g) {
     force.nodes(g.nodes).links(g.links).start();
 
     const link = svg.selectAll(".link")
@@ -87,10 +81,8 @@ height: 70px;
                     .attr("cy", function(d) { return d.y; });
 		});
 
-  })
-  .catch(function(error) {
-    return;
-  });
+ 
+	    })
 </script>
 	
 </body>
