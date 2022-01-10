@@ -57,6 +57,6 @@ def na(dis):
             rels.append({"source": source, "target": target})
     data= {"nodes": nodes, "links": rels}
    
-    return json.dumps(data)
+    return data
 
    
