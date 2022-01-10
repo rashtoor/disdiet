@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<header>
+	<link rel="stylesheet" href="/static/css/main.css">
+        <link rel="shortcut icon" href="/static/lstm.ico">
+	<ul>
+        <li><a href="/">Home</a></li>
+	<li><a href="{{ url_for('get_graph') }}">Graph</a></li>
+	<li><a href="{{ url_for('g') }}">Visualization</a></li>
+        </ul>
+</header>
+
+
+<body>
+   
+    <div class="container">
+        {% block content %}
+        {{input|safe}}
+        {% endblock %}
+    </div>
+	
+  <style type="text/css">
+    .buttonActive
+    {
+        background-color: #1E78AB;
+        border: 1px solid #1E78AB;
+        color: #fff;
+    }
+    .buttonInactive
+    {
+        background-color: #fff;
+        border: 1px solid #1E78AB;
+        color: #1E78AB;
+    }
+  </style>
+  
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#tr1").hide();
+        $("#tr2").hide();
+        $("#btn1").click(function () {
+            $('.buttonInactive').not(this).removeClass('buttonInactive');
+            $(this).toggleClass('buttonActive');
+            if ($(this).hasClass("buttonActive")) {
+                $("#tr1").show();
+            }
+            else {
+                $("#tr1").hide();
+            }
+        });
+        $("#btn2").click(function () {
+            $('.buttonInactive').not(this).removeClass('buttonInactive');
+            $(this).toggleClass('buttonActive');
+            if ($(this).hasClass("buttonActive")) {
+                $("#tr2").show();
+            }
+            else {
+                $("#tr2").hide();
+            }
+        });
+    });
+</script>
+<button id="btn1" type="button" class="buttonInactive">
+    Btn1</button>
+<button id="btn2" type="button" class="buttonInactive">
+    Btn2</button>
+<table id="mytable">
+    <tr id="tr1">
+        <td>
+            <input type="text" name="val1" id="val1" />
+        </td>
+        <td>
+            <input type="text" name="val2" id="val2" />
+        </td>
+    </tr>
+    <tr id="tr2">
+        <td>
+            <input type="text" name="val3" id="val3" />
+        </td>
+        <td>
+            <input type="text" name="val4" id="val4" />
+        </td>
+    </tr>
+</table>   
+
+</body>
+
+</html>
