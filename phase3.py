@@ -447,6 +447,19 @@ def network_analysis(dis):
     #file = io.open("/home/ubuntu/disdiet/templates/rnn_index.html", "r", encoding='utf-8')
     #q=file.read()
     #html = '{% extends' + q + '%} {% block content %}'
+    html_string = '''
+<html>
+  <head><title>HTML Pandas Dataframe with CSS</title></head>
+  <link rel="stylesheet" type="text/css" href="df_style.css"/>
+  <body>
+    {table}
+  </body>
+</html>.
+'''
+
+# OUTPUT AN HTML FILE
+with open('myhtml.html', 'w') as f:
+    f.write(html_string.format(table=demo_df.to_html(classes='mystyle')))
     html=''
     html = addContent(html, header(
         'Harmful Diets for '+dis, color='black'))
