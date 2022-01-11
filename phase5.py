@@ -473,7 +473,7 @@ def box(df):
     radio = [] # empty array to push the rows of input tags 
     for val in df:
       radio.append('<input type="radio" value="{}">'.format(val))
-    df.insert(0, 'E', radio , allow_duplicates=True)
+    df.insert(1, 'E', radio , allow_duplicates=True)
     
     b= '</div>'
     a=addContent(a,b)
