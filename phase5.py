@@ -426,7 +426,7 @@ def network_analysis(dis):
     #print(df1['prediction'])
     #lr = pd.DataFrame(values, columns = ['node1','node2','prediction'])
     #col=["node2","probability"]
-    col=["node2"]
+    col=["probability"]
     #final=pd.merge(df1[col], lr, on=['node1', 'node2'])
     #ans=pd.concat(final)
     #print(ans)
