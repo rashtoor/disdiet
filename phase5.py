@@ -444,11 +444,11 @@ def network_analysis(dis):
     html=''
     html = addContent(html, header(
         'Harmful Diets for '+dis, color='black'))
-    html = addContent(html, box(dr_harm[col].to_html(header=False, index=False)))
+    html = addContent(html, box(dr_harm[col]))
     
     html = addContent(html, header(
         'Helpful Diets for '+dis, color='black'))
-    html = addContent(html, box(dr_help[col].to_html(header=False, index=False)))
+    html = addContent(html, box(dr_help[col]))
     
    
     return f'<div>{html}</div>'
@@ -465,8 +465,9 @@ def header(text, color='black'):
     
 def box(df):
     """Create an HTML box of text"""
+    
     a = '<div style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 28px;">' + str(
-            df) 
+            df.to_html(header=False, index=False)) 
     
     radio = [] # empty array to push the rows of input tags 
     for val in df[0]:
