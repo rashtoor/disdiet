@@ -426,13 +426,19 @@ def network_analysis(dis):
     #print(df1['prediction'])
     #lr = pd.DataFrame(values, columns = ['node1','node2','prediction'])
     col=["node2","probability"]
+    
     #final=pd.merge(df1[col], lr, on=['node1', 'node2'])
     #ans=pd.concat(final)
     #print(ans)
     #col=["node1","node2","prediction"]
     #print(df1)
     #df1[col].to_csv('E:\\PhD\\main_work\\1results_phase1.csv')
-
+    
+    dr_harm['probability']= 1-dr_harm['probability']
+    
+    
+    
+    
     graph.run("""MATCH (n:disease{Name:$dis})-[r:linked_to]-() delete r""",dis=dis)
     graph.run("""MATCH (n:disease{Name:$dis}) delete n""",dis=dis)
 
