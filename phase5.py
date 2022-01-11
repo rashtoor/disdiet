@@ -425,7 +425,8 @@ def network_analysis(dis):
     #df1['prediction']=values
     #print(df1['prediction'])
     #lr = pd.DataFrame(values, columns = ['node1','node2','prediction'])
-    col=["node2","probability"]
+    #col=["node2","probability"]
+    col=["node2"]
     #final=pd.merge(df1[col], lr, on=['node1', 'node2'])
     #ans=pd.concat(final)
     #print(ans)
@@ -470,7 +471,7 @@ def box(df):
             df.to_html(header=False, index=False)) 
     
     radio = [] # empty array to push the rows of input tags 
-    for val in df[0]:
+    for val in df:
       radio.append('<input type="radio" value="{}">'.format(val))
     df.insert(0, 'E', radio , allow_duplicates=True)
     
