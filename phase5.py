@@ -468,7 +468,7 @@ def box(df):
     """Create an HTML box of text"""
     
     a = '<div style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 28px;">' + str(
-            df.to_html(header=False, index=False)) 
+            df.to_html()) 
     
     radio = [] # empty array to push the rows of input tags 
     for val in df:
