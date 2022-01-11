@@ -445,11 +445,11 @@ def network_analysis(dis):
     html = addContent(html, header(
         'Harmful Diets for '+dis, color='black'))
     html = addContent(html, box(dr_harm[col].to_html(header=False, index=False)))
-    html= addContent(html, but(dr_harm[col].to_html(header=False, index=False)))
+    
     html = addContent(html, header(
         'Helpful Diets for '+dis, color='black'))
     html = addContent(html, box(dr_help[col].to_html(header=False, index=False)))
-    html= addContent(html, but(dr_help[col].to_html(header=False, index=False)))
+    
    
     return f'<div>{html}</div>'
 
@@ -461,17 +461,21 @@ def header(text, color='black'):
             text) + '</center></h1>'
     return raw_html
 
-def but(df):
+
+    
+def box(df):
+    """Create an HTML box of text"""
+    a = '<div style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 28px;">' + str(
+            df) 
+    
     radio = [] # empty array to push the rows of input tags 
     for val in df[0]:
       radio.append('<input type="radio" value="{}">'.format(val))
     df.insert(0, 'E', radio , allow_duplicates=True)
-
-def box(text):
-    """Create an HTML box of text"""
-    raw_html = '<div style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 28px;">' + str(
-            text) + '</div>'
-    return raw_html
+    
+    b= '</div>'
+    a=addContent(a,b)
+    return a
 
 
 def addContent(old_html, raw_html):
