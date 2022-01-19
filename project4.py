@@ -104,7 +104,7 @@ def g():
 
 
 @app.route("/jsonFile", methods=['GET', 'POST'])
-def g():
+def jsonFile():
     if request.method == 'GET':
         return render_template('someFile.json')
 
