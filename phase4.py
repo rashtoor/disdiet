@@ -20,6 +20,7 @@ from imblearn.under_sampling import RandomUnderSampler
 from imblearn.pipeline import Pipeline
 from flask import Flask, g, Response, request, render_template
 import requests
+from os import getcwd
 
 
 
@@ -62,19 +63,19 @@ def na(dis):
     #data= Response(dumps({"nodes": nodes, "links": rels}),mimetype="application/json")
     
     
-    username = 'rashtoor'
+    #username = 'rashtoor'
 
 
 
-    token = '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'
+    #token = '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'
 
 
-    github_session = requests.Session()
-    github_session.auth = (username, token)
+    #github_session = requests.Session()
+    #github_session.auth = (username, token)
     
     # Downloading the csv file from your GitHub
 
-    url = "https://raw.githubusercontent.com/rashtoor/disdiet/main/x.json" # Make sure the url is the raw version of the file on GitHub
+    #url = "https://raw.githubusercontent.com/rashtoor/disdiet/main/x.json" # Make sure the url is the raw version of the file on GitHub
     #download = github_session.get(url)
 
     # Reading the downloaded content and making it a pandas dataframe
@@ -84,13 +85,14 @@ def na(dis):
     # Printing out the first 5 rows of the dataframe to make sure everything is good
 
     #print (df.head())
-
-
+    
+    directory = getcwd()
+    print(directory)
+    filename = directory + 'somefile.json'
     
     
     
-    
-    with open(url, "w") as file1:
+    with open(filename, "w") as file1:
     # Writing data to a file
         json.dump(data, file1)
         #file1.write(data)
