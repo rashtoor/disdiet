@@ -26,7 +26,7 @@
 }
 
 
-.node { fill: blue;
+.node { fill: #BBB;
 height: 70px;
   width: 25%; }
 </style>
@@ -99,8 +99,8 @@ height: 70px;
                     .attr("cy", function(d) { return d.y; });
         });
 	     // html title attribute
-        node.append("title")
-                .text(function (d) { return d.title; })
+        node.append("Name")
+                .text(function (d) { return d.Name; })
     });
 </script>
 </body>
