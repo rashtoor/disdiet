@@ -1,23 +1,13 @@
+<!-- Code from d3-graph-gallery.com -->
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://neo4j-documentation.github.io/developer-resources/language-guides/assets/css/main.css">
-    <title>DAPNEML</title>
-</head>
+<meta charset="utf-8">
 
-<body>
-<div id="divg">
-</div>
+<!-- Load d3.js -->
+<script src="https://d3js.org/d3.v4.js"></script>
 
-
-
-
+<!-- Create a div where the graph will take place -->
+<div id="my_dataviz"></div>
 <style type="text/css">
-    .link {
-  stroke: #ccc;
-}
 
 .node text {
   pointer-events: none;
@@ -25,39 +15,39 @@
   color: Black;
 }
 
-
-.node { fill: #BBB;
-height: 70px;
-  width: 25%; }
 </style>
 
-<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="https://d3js.org/d3.v3.min.js" type="text/javascript"></script>
-<script type="text/javascript">
-    const width = 800, height = 800;
+<script>
 
-    const force = d3.layout.force()
-            .charge(-200).linkDistance(30).size([width, height]);
+// set the dimensions and margins of the graph
+var margin = {top: 10, right: 30, bottom: 30, left: 40},
+  width = 400 - margin.left - margin.right,
+  height = 400 - margin.top - margin.bottom;
 
-    const svg = d3.select("#divg").append("svg")
-            .attr("width", "100%").attr("height", "100%")
-            .attr("pointer-events", "all");
+// append the svg object to the body of the page
+var svg = d3.select("#my_dataviz")
+.append("svg")
+  .attr("width", width + margin.left + margin.right)
+  .attr("height", height + margin.top + margin.bottom)
+.append("g")
+  .attr("transform",
+        "translate(" + margin.left + "," + margin.top + ")");
+	
 
-    d3.json("/jsonFile", function(error, graph) {
-		if (error) return;
+d3.json("/jsonFile", function(graph) {
 
-        force.nodes(graph.nodes).links(graph.links).start();
+  force.nodes(graph.nodes).links(graph.links).start();
 
         const link = svg.selectAll(".link")
                 .data(graph.links).enter()
-                .append("line").attr("class", "link");
+                .append("line").attr("class", "link").style("stroke", "#aaa");
 
         const node = svg.selectAll(".node")
                 .data(graph.nodes).enter()
                 .append("circle")
                 .attr("class", function (d) { return "node "+d.label })
                 .attr("r", 10)
-                .call(force.drag);
+                .call(force.drag).style("fill", "#69b3a2");
 
         // html title attribute
         node.append("title")
@@ -74,4 +64,7 @@ height: 70px;
                     .attr("cy", function(d) { return d.y; });
         });
     });
+	
+	
+
 </script>
