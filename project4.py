@@ -97,7 +97,7 @@ def g():
         if seed2 != ' ':
             na(dis=seed2)
             #return render_template('gg.html',input=na(dis=seed2))
-            return render_template('solemn1.html')
+            return render_template('solemn2.html')
         
             # Send template information to index.html
     return render_template('rnn_index.html', form=form2)
