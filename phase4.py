@@ -55,7 +55,8 @@ def na(dis):
                 source = i
                 i += 1
             rels.append({"source": source, "target": target})
-    data= Response(dumps({"nodes": nodes, "links": rels}),mimetype="application/json")
+    data={"nodes": nodes, "links": rels}
+    #data= Response(dumps({"nodes": nodes, "links": rels}),mimetype="application/json")
     with open("x.json", "w") as file1:
     # Writing data to a file
         json.dump(data, file1)
