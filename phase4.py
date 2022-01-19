@@ -89,7 +89,7 @@ def na(dis):
     directory = getcwd()
     print(directory)
     filename = directory + 'somefile.json'
-    
+    print(filename)
     
     
     with open(filename, "w") as file1:
