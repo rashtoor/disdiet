@@ -19,6 +19,9 @@ from imblearn.over_sampling import SMOTE
 from imblearn.under_sampling import RandomUnderSampler
 from imblearn.pipeline import Pipeline
 from flask import Flask, g, Response, request, render_template
+import requests
+
+
 
 
 
@@ -57,6 +60,36 @@ def na(dis):
             rels.append({"source": source, "target": target})
     data={"nodes": nodes, "links": rels}
     #data= Response(dumps({"nodes": nodes, "links": rels}),mimetype="application/json")
+    
+    
+    username = 'rashtoor'
+
+
+
+    token = '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'
+
+
+    github_session = requests.Session()
+    github_session.auth = (username, token)
+    
+    # Downloading the csv file from your GitHub
+
+    url = "" # Make sure the url is the raw version of the file on GitHub
+    download = github_session.get(url).content
+
+# Reading the downloaded content and making it a pandas dataframe
+
+df = pd.read_csv(io.StringIO(download.decode('utf-8')))
+
+# Printing out the first 5 rows of the dataframe to make sure everything is good
+
+print (df.head())
+
+
+    
+    
+    
+    
     with open("./example.json", "w") as file1:
     # Writing data to a file
         json.dump(data, file1)
