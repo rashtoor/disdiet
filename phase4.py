@@ -57,7 +57,7 @@ def na(dis):
             rels.append({"source": source, "target": target})
     data={"nodes": nodes, "links": rels}
     #data= Response(dumps({"nodes": nodes, "links": rels}),mimetype="application/json")
-    with open("x.json", "w") as file1:
+    with open("https://github.com/rashtoor/disdiet/blob/main/x.json", "w") as file1:
     # Writing data to a file
         json.dump(data, file1)
         #file1.write(data)
