@@ -106,7 +106,7 @@ def g():
 @app.route("/jsonFile", methods=['GET', 'POST'])
 def jsonFile():
     if request.method == 'GET':
-        return render_template('someFile.json')
+        return render_template('somefile.json')
 
 @app.route("/graph")
 def get_graph():
