@@ -103,6 +103,10 @@ def g():
     return render_template('rnn_index.html', form=form2)
 
 
+@app.route("/jsonFile", methods=['GET', 'POST'])
+def g():
+    if request.method == 'GET':
+        return render_template('someFile.json')
 
 @app.route("/graph")
 def get_graph():
