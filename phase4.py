@@ -58,5 +58,5 @@ def na(dis):
     data= Response(dumps({"nodes": nodes, "links": rels}),mimetype="application/json")
     with open("x.json", "w") as file1:
     # Writing data to a file
-    file1.write(data)
+        file1.write(data)
 
