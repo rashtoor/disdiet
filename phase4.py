@@ -74,23 +74,23 @@ def na(dis):
     
     # Downloading the csv file from your GitHub
 
-    url = "" # Make sure the url is the raw version of the file on GitHub
-    download = github_session.get(url).content
+    url = "https://raw.githubusercontent.com/rashtoor/disdiet/main/x.json" # Make sure the url is the raw version of the file on GitHub
+    download = github_session.get(url)
 
-# Reading the downloaded content and making it a pandas dataframe
+    # Reading the downloaded content and making it a pandas dataframe
 
-df = pd.read_csv(io.StringIO(download.decode('utf-8')))
+    #df = pd.read_csv(io.StringIO(download.decode('utf-8')))
 
-# Printing out the first 5 rows of the dataframe to make sure everything is good
+    # Printing out the first 5 rows of the dataframe to make sure everything is good
 
-print (df.head())
+    #print (df.head())
 
 
     
     
     
     
-    with open("./example.json", "w") as file1:
+    with open(download, "w") as file1:
     # Writing data to a file
         json.dump(data, file1)
         #file1.write(data)
