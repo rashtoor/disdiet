@@ -88,7 +88,7 @@ def na(dis):
     
     directory = getcwd()
     print(directory)
-    filename = directory + 'somefile.json'
+    filename = directory + '/templates/somefile.json'
     print(filename)
     
     
