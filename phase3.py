@@ -430,8 +430,8 @@ def network_analysis(dis):
     
     fr_harm = dr_harm.rename({'node2': 'Diet/Food item', 'probability': 'Chances of being harmful (%)'}, axis=1)
     fr_help = dr_help.rename({'node2': 'Diet/Food item', 'probability': 'Chances of being helpful (%)'}, axis=1)
-    col1=["Diet/Food item","Chances of being harmful(%)"]
-    col2=["Diet/Food item","Chances of being helpful(%)"]
+    col1=["Diet/Food item","Chances of being harmful (%)"]
+    col2=["Diet/Food item","Chances of being helpful (%)"]
     
     #final=pd.merge(df1[col], lr, on=['node1', 'node2'])
     #ans=pd.concat(final)
