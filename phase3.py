@@ -425,7 +425,13 @@ def network_analysis(dis):
     #df1['prediction']=values
     #print(df1['prediction'])
     #lr = pd.DataFrame(values, columns = ['node1','node2','prediction'])
-    col=["node2","probability"]
+    dr_harm['probability']= (1-dr_harm['probability'])*100
+    dr_help['probability']= (dr_help['probability'])*100
+    
+    fr_harm = dr_harm.rename({'node2': 'Diet/Food item', 'probability': 'Chances of being harmful (%)'}, axis=1)
+    fr_help = dr_help.rename({'node2': 'Diet/Food item', 'probability': 'Chances of being helpful (%)'}, axis=1)
+    col1=["Diet/Food item","Chances of being harmful(%)"]
+    col2=["Diet/Food item","Chances of being helpful(%)"]
     
     #final=pd.merge(df1[col], lr, on=['node1', 'node2'])
     #ans=pd.concat(final)
@@ -433,10 +439,6 @@ def network_analysis(dis):
     #col=["node1","node2","prediction"]
     #print(df1)
     #df1[col].to_csv('E:\\PhD\\main_work\\1results_phase1.csv')
-    
-    dr_harm['probability']= 1-dr_harm['probability']
-    
-    
     
     
     graph.run("""MATCH (n:disease{Name:$dis})-[r:linked_to]-() delete r""",dis=dis)
@@ -453,10 +455,10 @@ def network_analysis(dis):
     html=''
     html = addContent(html, header(
         'Harmful Diets for '+dis, color='black'))
-    html = addContent(html, box(dr_harm[col].to_html(header=False, index=False)))
+    html = addContent(html, box(fr_harm[col1].to_html(header=False, index=False)))
     html = addContent(html, header(
         'Helpful Diets for '+dis, color='black'))
-    html = addContent(html, box(dr_help[col].to_html(header=False, index=False)))
+    html = addContent(html, box(fr_help[col2].to_html(header=False, index=False)))
    
     return f'<div>{html}</div>'
 
