@@ -519,7 +519,7 @@ def box(text):
 
 def bar():
     """Bar chart"""
-    data_uri = base64.b64encode(open('fig1.png', 'rb').read()).decode('utf-8')
+    data_uri = base64.b64encode(open(filename, 'rb').read()).decode('utf-8')
     img_tag = '<img src="data:image/png;base64,{0}">'.format(data_uri)
     raw_html = '<div style="float: right;">' + img_tag + '</div>'
     return raw_html
