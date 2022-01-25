@@ -464,7 +464,9 @@ def network_analysis(dis):
     plt.ylabel('y - axis')
 # plot title
     plt.title('My bar chart!')
-    plt.savefig('/home/ubuntu/disdiet/templates/fig1.png')
+    diy = getcwd()
+    filename = diy + '/templates/fig1.png'
+    plt.savefig(filename)
 # function to show the plot
 #plt.show()
 
