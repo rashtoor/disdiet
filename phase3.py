@@ -17,6 +17,7 @@ from imblearn.over_sampling import SMOTE
 from imblearn.under_sampling import RandomUnderSampler
 from imblearn.pipeline import Pipeline
 import matplotlib.pyplot as plt
+from os import getcwd
 
 
 def network_analysis(dis):
