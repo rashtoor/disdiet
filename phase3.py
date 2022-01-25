@@ -16,7 +16,7 @@ from sklearn.preprocessing import OneHotEncoder
 from imblearn.over_sampling import SMOTE
 from imblearn.under_sampling import RandomUnderSampler
 from imblearn.pipeline import Pipeline
-
+import matplotlib.pyplot as plt
 
 
 def network_analysis(dis):
@@ -444,6 +444,35 @@ def network_analysis(dis):
     #df1[col].to_csv('E:\\PhD\\main_work\\1results_phase1.csv')
     
     
+
+# x-coordinates of left sides of bars
+    left = [1, 2, 3, 4, 5]
+
+# heights of bars
+    height = [10, 24, 36, 40, 5]
+
+# labels for bars
+    tick_label = ['one', 'two', 'three', 'four', 'five']
+
+# plotting a bar chart
+    plt.bar(left, height, tick_label = tick_label,
+		width = 0.8, color = ['red', 'green'])
+
+# naming the x-axis
+    plt.xlabel('x - axis')
+# naming the y-axis
+    plt.ylabel('y - axis')
+# plot title
+    plt.title('My bar chart!')
+
+# function to show the plot
+#plt.show()
+
+    
+    
+    
+    
+    
     graph.run("""MATCH (n:disease{Name:$dis})-[r:linked_to]-() delete r""",dis=dis)
     graph.run("""MATCH (n:disease{Name:$dis}) delete n""",dis=dis)
 
@@ -459,6 +488,7 @@ def network_analysis(dis):
     html = addContent(html, header(
         'Harmful Diets for '+dis, color='black'))
     html = addContent(html, box(fr_harm[col1].to_html(index=False)))
+    html = addContent(html, bar(plt))
     html = addContent(html, header(
         'Helpful Diets for '+dis, color='black'))
     html = addContent(html, box(fr_help[col2].to_html(index=False)))
@@ -469,15 +499,20 @@ def network_analysis(dis):
 def header(text, color='black'):
     """Create an HTML header"""
 
-    raw_html = f'<h1 style="margin-top:12px;color: {color};font-size:54px"><center>' + str(
+    raw_html = f'<h1 style="margin-top:12px;color: {color};font-size:28px"><center>' + str(
             text) + '</center></h1>'
     return raw_html
 
 
 def box(text):
     """Create an HTML box of text"""
-    raw_html = '<div style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 28px;">' + str(
+    raw_html = '<div style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 14px;float: left;">' + str(
             text) + '</div>'
+    return raw_html
+
+def bar(plt):
+    """Create an HTML box of text"""
+    raw_html = '<div float: right;">' + plt.show() + '</div>'
     return raw_html
 
 
