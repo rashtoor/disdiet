@@ -428,6 +428,9 @@ def network_analysis(dis):
     dr_harm['probability']= (1-dr_harm['probability'])*100
     dr_help['probability']= (dr_help['probability'])*100
     
+    dr_harm = dr_harm.sort_values(["probability", "node2"], ascending=False)
+    dr_help = dr_help.sort_values(["probability", "node2"], ascending=False)
+    
     fr_harm = dr_harm.rename({'node2': 'Diet/Food item', 'probability': 'Chances of being harmful (%)'}, axis=1)
     fr_help = dr_help.rename({'node2': 'Diet/Food item', 'probability': 'Chances of being helpful (%)'}, axis=1)
     col1=["Diet/Food item","Chances of being harmful (%)"]
