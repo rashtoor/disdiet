@@ -18,6 +18,8 @@ from imblearn.under_sampling import RandomUnderSampler
 from imblearn.pipeline import Pipeline
 import matplotlib.pyplot as plt
 from os import getcwd
+import io
+import base64
 
 
 def network_analysis(dis):
@@ -472,6 +474,8 @@ def network_analysis(dis):
 #plt.show()
 
     
+
+
     
     
     
@@ -491,7 +495,7 @@ def network_analysis(dis):
     html = addContent(html, header(
         'Harmful Diets for '+dis, color='black'))
     html = addContent(html, box(fr_harm[col1].to_html(index=False)))
-    html = addContent(html, bar(plt))
+    html = addContent(html, bar())
     html = addContent(html, header(
         'Helpful Diets for '+dis, color='black'))
     html = addContent(html, box(fr_help[col2].to_html(index=False)))
@@ -513,9 +517,11 @@ def box(text):
             text) + '</div>'
     return raw_html
 
-def bar(plt):
-    """Create an HTML box of text"""
-    raw_html = '<div style="float: right;"> <img src='+ fig1.png + '/> </div>'
+def bar():
+    """Bar chart"""
+    data_uri = base64.b64encode(open('fig1.png', 'rb').read()).decode('utf-8')
+    img_tag = '<img src="data:image/png;base64,{0}">'.format(data_uri)
+    raw_html = '<div style="float: right;">' + img_tag + '</div>'
     return raw_html
 
 
