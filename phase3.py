@@ -514,7 +514,7 @@ def box(text):
 
 def bar(plt):
     """Create an HTML box of text"""
-    raw_html = '<div float: right;"> <img src='fig1.png'/> </div>'
+    raw_html = '<div style="float: right;"> <img src='+ fig1.png + '/> </div>'
     return raw_html
 
 
