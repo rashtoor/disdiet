@@ -464,7 +464,7 @@ def network_analysis(dis):
     plt.ylabel('y - axis')
 # plot title
     plt.title('My bar chart!')
-
+    plt.savefig('/home/ubuntu/disdiet/templates/fig1.png')
 # function to show the plot
 #plt.show()
 
@@ -512,7 +512,7 @@ def box(text):
 
 def bar(plt):
     """Create an HTML box of text"""
-    raw_html = '<div float: right;">' + plt.show() + '</div>'
+    raw_html = '<div float: right;"> <img src='fig1.png'/> </div>'
     return raw_html
 
 
