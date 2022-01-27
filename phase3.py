@@ -500,7 +500,7 @@ def network_analysis(dis):
     html = addContent(html, header(
         'Helpful Diets for '+dis, color='black'))
     html = addContent(html, box(fr_help[col2].to_html(index=False)))
-   
+    html = addContent(html, bar())
     return f'<div>{html}</div>'
 
 
@@ -522,7 +522,7 @@ def bar():
     """Bar chart"""
     data_uri = base64.b64encode(open('/home/ubuntu/disdiet/templates/fig1.png', 'rb').read()).decode('utf-8')
     img_tag = '<img src="data:image/png;base64,{0}">'.format(data_uri)
-    raw_html = '<td><div style="float: right;">' + img_tag + '</div></td></tr>'
+    raw_html = '<td><div style="float: right;">' + img_tag + '</div></td></tr></div>'
     return raw_html
 
 
