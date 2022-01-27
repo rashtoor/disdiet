@@ -495,11 +495,11 @@ def network_analysis(dis):
     html='<div class="container">'
     html = addContent(html, header1('Harmful Diets for '+dis, color='black'))
     html = addContent(html, box1(fr_harm[col1].to_html(index=False)))
-    html = addContent(html, bar())
+    html = addContent(html, bar1())
     html = addContent(html, header2(
         'Helpful Diets for '+dis, color='black'))
-    html = addContent(html, box(fr_help[col2].to_html(index=False)))
-   
+    html = addContent(html, box2(fr_help[col2].to_html(index=False)))
+    html = addContent(html, bar2())
     return f'<div>{html}</div>'
 
 
@@ -513,7 +513,7 @@ def header1(text):
 def header2(text):
     """Create an HTML header"""
 
-    raw_html = '<div class="a2">' + str(
+    raw_html = '<div class="a4">' + str(
             text) + '</div>'
     return raw_html
 
@@ -526,7 +526,7 @@ def box1(text):
 
 def box2(text):
     """Create an HTML box of text"""
-    raw_html = '<tr><td><div class="a4" style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 14px;float: left;">' + str(
+    raw_html = '<tr><td><div class="a5" style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 14px;float: left;">' + str(
             text) + '</div></td>'
     return raw_html
 
@@ -537,11 +537,11 @@ def bar1():
     raw_html = '<div class="a3">' + img_tag + '</div>'
     return raw_html
 
-def bar1():
+def bar2():
     """Bar chart"""
     data_uri = base64.b64encode(open('/home/ubuntu/disdiet/templates/fig1.png', 'rb').read()).decode('utf-8')
     img_tag = '<img src="data:image/png;base64,{0}">'.format(data_uri)
-    raw_html = '<div class="a5">' + img_tag + '</div>'
+    raw_html = '<div class="a6">' + img_tag + '</div>'
     return raw_html
 
 def addContent(old_html, raw_html):
