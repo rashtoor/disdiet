@@ -469,7 +469,7 @@ def network_analysis(dis):
     plt.title('My bar chart!')
     diy = getcwd()
     filename = diy + '/templates/fig1.png'
-    plt.figure(figsize=(5, 3))
+    plt.figure(figsize=(3, 3))
     plt.savefig(filename)
 # function to show the plot
 #plt.show()
@@ -507,14 +507,14 @@ def network_analysis(dis):
 def header(text, color='black'):
     """Create an HTML header"""
 
-    raw_html = '<tr><td><div style="float: center;"><h1 style="margin-top:12px;color: {color};font-size:28px"><center>' + str(
+    raw_html = '<tr><td><div style="float: center;"><h1 style="margin-top:12px;color: {color};font-size:14px"><center>' + str(
             text) + '</center></h1></div></td></tr>'
     return raw_html
 
 
 def box(text):
     """Create an HTML box of text"""
-    raw_html = '<tr><td><div style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 14px;float: left;">' + str(
+    raw_html = '<tr><td><div style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 10px;float: left;">' + str(
             text) + '</div></td>'
     return raw_html
 
