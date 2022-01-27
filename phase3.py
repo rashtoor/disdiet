@@ -466,7 +466,7 @@ def network_analysis(dis):
 # naming the y-axis
     plt.ylabel('y - axis')
 # plot title
-    plt.title('My bar chart!')
+    #plt.title('My bar chart!')
     diy = getcwd()
     filename = diy + '/templates/fig1.png'
     figure = plt.gcf()
