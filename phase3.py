@@ -470,7 +470,7 @@ def network_analysis(dis):
     diy = getcwd()
     filename = diy + '/templates/fig1.png'
     figure = plt.gcf()
-    figure.set_size_inches(3, 3)
+    figure.set_size_inches(5, 3)
     plt.savefig(filename,dpi=100)
 # function to show the plot
 #plt.show()
