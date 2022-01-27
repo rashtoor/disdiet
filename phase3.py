@@ -470,7 +470,7 @@ def network_analysis(dis):
     diy = getcwd()
     filename = diy + '/templates/fig1.png'
     figure = plt.gcf()
-    figure.set_size_inches(5, 3)
+    figure.set_size_inches(3, 3)
     plt.savefig(filename,dpi=100)
 # function to show the plot
 #plt.show()
@@ -515,7 +515,7 @@ def header(text, color='black'):
 
 def box(text):
     """Create an HTML box of text"""
-    raw_html = '<tr><td><div style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 10px;float: left;">' + str(
+    raw_html = '<tr><td><div style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 14px;float: left;">' + str(
             text) + '</div></td>'
     return raw_html
 
