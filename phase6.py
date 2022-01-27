@@ -493,11 +493,11 @@ def network_analysis(dis):
 
 
     html='<div class="container">'
-    html = addContent(html, header1('Harmful Diets for '+dis, color='black'))
+    html = addContent(html, header1('Harmful Diets for '+dis))
     html = addContent(html, box1(fr_harm[col1].to_html(index=False)))
     html = addContent(html, bar1())
     html = addContent(html, header2(
-        'Helpful Diets for '+dis, color='black'))
+        'Helpful Diets for '+dis)
     html = addContent(html, box2(fr_help[col2].to_html(index=False)))
     html = addContent(html, bar2())
     return f'<div>{html}</div>'
