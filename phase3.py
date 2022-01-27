@@ -506,22 +506,22 @@ def network_analysis(dis):
 def header(text, color='black'):
     """Create an HTML header"""
 
-    raw_html = '<div style="float: center;"><h1 style="margin-top:12px;color: {color};font-size:28px"><center>' + str(
-            text) + '</center></h1></div>'
+    raw_html = '<tr><td><div style="float: center;"><h1 style="margin-top:12px;color: {color};font-size:28px"><center>' + str(
+            text) + '</center></h1></div></td></tr>'
     return raw_html
 
 
 def box(text):
     """Create an HTML box of text"""
-    raw_html = '<div style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 14px;float: left;">' + str(
-            text) + '</div>'
+    raw_html = '<tr><td><div style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 14px;float: left;">' + str(
+            text) + '</div></td>'
     return raw_html
 
 def bar():
     """Bar chart"""
     data_uri = base64.b64encode(open('/home/ubuntu/disdiet/templates/fig1.png', 'rb').read()).decode('utf-8')
     img_tag = '<img src="data:image/png;base64,{0}">'.format(data_uri)
-    raw_html = '<div style="float: right;">' + img_tag + '</div>'
+    raw_html = '<td><div style="float: right;">' + img_tag + '</div></td></tr>'
     return raw_html
 
 
