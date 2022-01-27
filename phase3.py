@@ -498,6 +498,7 @@ def network_analysis(dis):
         'Harmful Diets for '+dis, color='black'))
     html = addContent(html, box(fr_harm[col1].to_html(index=False)))
     html = addContent(html, bar())
+    html= addContent(html, '<div>')
     html = addContent(html, header(
         'Helpful Diets for '+dis, color='black'))
     html = addContent(html, box(fr_help[col2].to_html(index=False)))
