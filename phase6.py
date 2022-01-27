@@ -494,7 +494,7 @@ def network_analysis(dis):
 
     html='<div class="container">'
     html = addContent(html, header1('Harmful Diets for '+dis, color='black'))
-    html = addContent(html, box(fr_harm[col1].to_html(index=False)))
+    html = addContent(html, box1(fr_harm[col1].to_html(index=False)))
     html = addContent(html, bar())
     html = addContent(html, header2(
         'Helpful Diets for '+dis, color='black'))
@@ -508,35 +508,41 @@ def header1(text):
 
     raw_html = '<div class="a1">' + str(
             text) + '</div>'
+    return raw_html
     
 def header2(text):
     """Create an HTML header"""
 
     raw_html = '<div class="a2">' + str(
             text) + '</div>'
-
-    
-    <div class="a1"></div>
-    <div class="a2"></div>
-    <div class="a3"></div>
-    <div class="a4"></div>
-    </div>
     return raw_html
 
 
-def box(text):
+def box1(text):
     """Create an HTML box of text"""
-    raw_html = '<tr><td><div style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 14px;float: left;">' + str(
+    raw_html = '<tr><td><div class="a2" style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 14px;float: left;">' + str(
             text) + '</div></td>'
     return raw_html
 
-def bar():
+def box2(text):
+    """Create an HTML box of text"""
+    raw_html = '<tr><td><div class="a4" style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 14px;float: left;">' + str(
+            text) + '</div></td>'
+    return raw_html
+
+def bar1():
     """Bar chart"""
     data_uri = base64.b64encode(open('/home/ubuntu/disdiet/templates/fig1.png', 'rb').read()).decode('utf-8')
     img_tag = '<img src="data:image/png;base64,{0}">'.format(data_uri)
-    raw_html = '<td><div style="float: right;">' + img_tag + '</div></td></tr>'
+    raw_html = '<div class="a3">' + img_tag + '</div>'
     return raw_html
 
+def bar1():
+    """Bar chart"""
+    data_uri = base64.b64encode(open('/home/ubuntu/disdiet/templates/fig1.png', 'rb').read()).decode('utf-8')
+    img_tag = '<img src="data:image/png;base64,{0}">'.format(data_uri)
+    raw_html = '<div class="a5">' + img_tag + '</div>'
+    return raw_html
 
 def addContent(old_html, raw_html):
     """Add html content together"""
