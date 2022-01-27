@@ -469,8 +469,9 @@ def network_analysis(dis):
     plt.title('My bar chart!')
     diy = getcwd()
     filename = diy + '/templates/fig1.png'
-    plt.figure(figsize=(3, 3))
-    plt.savefig(filename)
+    figure = plt.gcf()
+    figure.set_size_inches(5, 3)
+    plt.savefig(filename,dpi=100)
 # function to show the plot
 #plt.show()
 
