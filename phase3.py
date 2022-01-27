@@ -508,7 +508,7 @@ def network_analysis(dis):
 def header(text, color='black'):
     """Create an HTML header"""
 
-    raw_html = '<tr><td><div style="float: center;"><h1 style="margin-top:12px;color: {color};font-size:14px"><center>' + str(
+    raw_html = '<tr><td><div style="float: center;"><h1 style="margin-top:12px;color: {color};font-size:20px"><center>' + str(
             text) + '</center></h1></div></td></tr>'
     return raw_html
 
