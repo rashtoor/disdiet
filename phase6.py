@@ -519,14 +519,14 @@ def header2(text):
 
 def box1(text):
     """Create an HTML box of text"""
-    raw_html = '<tr><td><div class="a2" style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 14px;float: left;">' + str(
-            text) + '</div></td>'
+    raw_html = '<div class="a2" style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 14px;float: left;">' + str(
+            text) + '</div>'
     return raw_html
 
 def box2(text):
     """Create an HTML box of text"""
-    raw_html = '<tr><td><div class="a5" style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 14px;float: left;">' + str(
-            text) + '</div></td>'
+    raw_html = '<div class="a5" style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 14px;float: left;">' + str(
+            text) + '</div>'
     return raw_html
 
 def bar1():
