@@ -459,7 +459,7 @@ def network_analysis(dis):
 
 # plotting a bar chart
     plt.bar(left, height, tick_label = tick_label,
-		width = 0.8, color = ['red', 'green'])
+		width = 0.4, color = ['red', 'green'])
 
 # naming the x-axis
     plt.xlabel('x - axis')
