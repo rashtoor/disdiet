@@ -495,7 +495,7 @@ def network_analysis(dis):
 
     html=''
     html = addContent(html, header(
-        'Harmful Diets for '+dis, color='black'))
+        'Harmful Diets for '+dis)
     html = addContent(html, box(fr_harm[col1].to_html(index=False)))
     html = addContent(html, bar())
     html= addContent(html, '<div>')
@@ -506,11 +506,11 @@ def network_analysis(dis):
     return f'<div>{html}</div>'
 
 
-def header(text, color='black'):
+def header(text):
     """Create an HTML header"""
 
-    raw_html = '<tr><td><div style="float: center;"><h1 style="color: {color};font-size:30px"><center>' + str(
-            text) + '</center></h1></div></td></tr>'
+    raw_html = '<table border="5" bordercolor="red" align="center"><tr><th colspan="14">+ str(
+            text) + '</th></tr>'
     return raw_html
 
 
@@ -524,7 +524,7 @@ def bar():
     """Bar chart"""
     data_uri = base64.b64encode(open('/home/ubuntu/disdiet/templates/fig1.png', 'rb').read()).decode('utf-8')
     img_tag = '<img src="data:image/png;base64,{0}">'.format(data_uri)
-    raw_html = '<td><div style="float: right;">' + img_tag + '</div></td></tr></div>'
+    raw_html = '<td><div style="float: right;">' + img_tag + '</div></td></tr></table>'
     return raw_html
 
 
