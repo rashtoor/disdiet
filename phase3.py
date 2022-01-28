@@ -16,7 +16,8 @@ from sklearn.preprocessing import OneHotEncoder
 from imblearn.over_sampling import SMOTE
 from imblearn.under_sampling import RandomUnderSampler
 from imblearn.pipeline import Pipeline
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt1
+import matplotlib.pyplot as plt2
 from os import getcwd
 import io
 import base64
@@ -449,29 +450,37 @@ def network_analysis(dis):
     
 
 # x-coordinates of left sides of bars
-    left = [1, 2, 3, 4, 5]
+    #left = [1, 2, 3, 4, 5]
+    left1=dr_harm['Diet/Food item']
+    left2=dr_help['Diet/Food item']
 
 # heights of bars
-    height = [10, 24, 36, 40, 5]
+    #height = [10, 24, 36, 40, 5]
+    height1 = dr_harm['Chances of being harmful (%)']
+    height2 = dr_help['Chances of being helpful (%)']
 
 # labels for bars
-    tick_label = ['one', 'two', 'three', 'four', 'five']
+    #tick_label = ['one', 'two', 'three', 'four', 'five']
 
 # plotting a bar chart
-    plt.bar(left, height, tick_label = tick_label,
+    plt1.bar(left, height, tick_label = left1,
 		width = 0.4, color = ['red', 'green'])
-
+    plt2.bar(left, height, tick_label = left2,
+		width = 0.4, color = ['red', 'green'])
 # naming the x-axis
-    plt.xlabel('x - axis')
+    #plt.xlabel('x - axis')
 # naming the y-axis
-    plt.ylabel('y - axis')
+    #plt.ylabel('y - axis')
 # plot title
-    #plt.title('My bar chart!')
+    plt1.title('Harmful Diets')
+    plt2.title('Helpful Diets')
     diy = getcwd()
-    filename = diy + '/templates/fig1.png'
+    filename1 = diy + '/templates/fig1.png'
+    filename2 = diy + '/templates/fig2.png'
     figure = plt.gcf()
     figure.set_size_inches(5, 3)
-    plt.savefig(filename,dpi=100)
+    plt1.savefig(filename1,dpi=100)
+    plt2.savefig(filename2,dpi=100)
 # function to show the plot
 #plt.show()
 
@@ -496,11 +505,11 @@ def network_analysis(dis):
     html=''
     html = addContent(html, header('Harmful Diets for '+dis))
     html = addContent(html, box(fr_harm[col1].to_html(index=False)))
-    html = addContent(html, bar())
+    html = addContent(html, bar(filename1))
     html= addContent(html, '<div>')
     html = addContent(html, header('Helpful Diets for '+dis))
     html = addContent(html, box(fr_help[col2].to_html(index=False)))
-    html = addContent(html, bar())
+    html = addContent(html, bar(filename2))
     return f'<div>{html}</div>'
 
 
@@ -518,9 +527,9 @@ def box(text):
             text) + '</div></td>'
     return raw_html
 
-def bar():
+def bar(filename):
     """Bar chart"""
-    data_uri = base64.b64encode(open('/home/ubuntu/disdiet/templates/fig1.png', 'rb').read()).decode('utf-8')
+    data_uri = base64.b64encode(open(filename, 'rb').read()).decode('utf-8')
     img_tag = '<img src="data:image/png;base64,{0}">'.format(data_uri)
     raw_html = '<td><div style="float: right;">' + img_tag + '</div></td></tr></table>'
     return raw_html
