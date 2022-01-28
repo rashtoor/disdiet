@@ -477,8 +477,10 @@ def network_analysis(dis):
     diy = getcwd()
     filename1 = diy + '/templates/fig1.png'
     filename2 = diy + '/templates/fig2.png'
-    figure = plt.gcf()
-    figure.set_size_inches(5, 3)
+    figure1 = plt1.gcf()
+    figure2 = plt2.gcf()
+    figure1.set_size_inches(5, 3)
+    figure2.set_size_inches(5, 3)
     plt1.savefig(filename1,dpi=100)
     plt2.savefig(filename2,dpi=100)
 # function to show the plot
