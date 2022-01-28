@@ -16,8 +16,7 @@ from sklearn.preprocessing import OneHotEncoder
 from imblearn.over_sampling import SMOTE
 from imblearn.under_sampling import RandomUnderSampler
 from imblearn.pipeline import Pipeline
-import matplotlib.pyplot as plt1
-import matplotlib.pyplot as plt2
+import matplotlib.pyplot as plt
 from os import getcwd
 import io
 import base64
@@ -446,7 +445,9 @@ def network_analysis(dis):
     #col=["node1","node2","prediction"]
     #print(df1)
     #df1[col].to_csv('E:\\PhD\\main_work\\1results_phase1.csv')
-    
+    diy = getcwd()
+    filename1 = diy + '/templates/fig1.png'
+    filename2 = diy + '/templates/fig2.png'
     
 
 # x-coordinates of left sides of bars
@@ -461,28 +462,32 @@ def network_analysis(dis):
 
 # labels for bars
     #tick_label = ['one', 'two', 'three', 'four', 'five']
-
+    plt.figure(1)
 # plotting a bar chart
-    plt1.bar(left1, height1, tick_label = left1,
+    plt.bar(left1, height1, tick_label = left1,
 		width = 0.4, color = ['red', 'green'])
-    plt2.bar(left2, height2, tick_label = left2,
+    plt.title('Harmful Diets')
+    figure1 = plt.gcf()
+    figure1.set_size_inches(5, 3)
+    plt.savefig(filename1,dpi=100)
+    
+    plt.figure(2)
+    plt.bar(left2, height2, tick_label = left2,
 		width = 0.4, color = ['red', 'green'])
 # naming the x-axis
     #plt.xlabel('x - axis')
 # naming the y-axis
     #plt.ylabel('y - axis')
 # plot title
-    plt1.title('Harmful Diets')
-    plt2.title('Helpful Diets')
-    diy = getcwd()
-    filename1 = diy + '/templates/fig1.png'
-    filename2 = diy + '/templates/fig2.png'
-    figure1 = plt1.gcf()
-    figure2 = plt2.gcf()
-    figure1.set_size_inches(5, 3)
+    
+    plt.title('Helpful Diets')
+    
+    
+    figure2 = plt.gcf()
+    
     figure2.set_size_inches(5, 3)
-    plt1.savefig(filename1,dpi=100)
-    plt2.savefig(filename2,dpi=100)
+    
+    plt.savefig(filename2,dpi=100)
 # function to show the plot
 #plt.show()
 
