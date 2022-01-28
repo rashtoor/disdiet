@@ -451,13 +451,13 @@ def network_analysis(dis):
 
 # x-coordinates of left sides of bars
     #left = [1, 2, 3, 4, 5]
-    left1=dr_harm['Diet/Food item']
-    left2=dr_help['Diet/Food item']
+    left1=dr_harm['node2']
+    left2=dr_help['node2']
 
 # heights of bars
     #height = [10, 24, 36, 40, 5]
-    height1 = dr_harm['Chances of being harmful (%)']
-    height2 = dr_help['Chances of being helpful (%)']
+    height1 = dr_harm['probability']
+    height2 = dr_help['probability']
 
 # labels for bars
     #tick_label = ['one', 'two', 'three', 'four', 'five']
