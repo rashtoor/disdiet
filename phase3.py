@@ -463,9 +463,9 @@ def network_analysis(dis):
     #tick_label = ['one', 'two', 'three', 'four', 'five']
 
 # plotting a bar chart
-    plt1.bar(left, height, tick_label = left1,
+    plt1.bar(left1, height1, tick_label = left1,
 		width = 0.4, color = ['red', 'green'])
-    plt2.bar(left, height, tick_label = left2,
+    plt2.bar(left2, height2, tick_label = left2,
 		width = 0.4, color = ['red', 'green'])
 # naming the x-axis
     #plt.xlabel('x - axis')
