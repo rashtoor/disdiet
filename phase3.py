@@ -465,17 +465,17 @@ def network_analysis(dis):
     plt.figure(1)
 # plotting a bar chart
     plt.bar(left1, height1, tick_label = left1,
-		width = 0.4, color = ['red'])
+		width = 0.6, color = ['red'])
     plt.xticks(rotation=45, ha="right",fontsize=8)
     plt.yticks(fontsize=8)
     plt.title('Harmful Diets',fontsize=8)
     figure1 = plt.gcf()
-    figure1.set_size_inches(5, 4)
+    figure1.set_size_inches(5, 3)
     plt.savefig(filename1,dpi=100)
     
     plt.figure(2)
     plt.bar(left2, height2, tick_label = left2,
-		width = 0.4, color = ['blue'])
+		width = 0.6, color = ['blue'])
     plt.xticks(rotation=45, ha="right",fontsize=8)
     plt.yticks(fontsize=8)
 # naming the x-axis
@@ -489,7 +489,7 @@ def network_analysis(dis):
     
     figure2 = plt.gcf()
     
-    figure2.set_size_inches(5, 4)
+    figure2.set_size_inches(5, 3)
     
     plt.savefig(filename2,dpi=100)
 # function to show the plot
