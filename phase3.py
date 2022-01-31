@@ -477,7 +477,7 @@ def network_analysis(dis):
     
     plt.figure(2)
     plt.bar(left2, height2, tick_label = left2,
-		width = 0.4, color = ['blue'])
+		width = 0.3, color = ['blue'])
     plt.xticks(rotation=45, ha="right",fontsize=8)
     plt.yticks(fontsize=8)
 # naming the x-axis
