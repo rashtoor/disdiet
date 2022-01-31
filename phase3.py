@@ -519,10 +519,12 @@ def network_analysis(dis):
     html = addContent(html, header('Harmful Diets for '+dis))
     html = addContent(html, box1(fr_harm[col1].to_html(index=False)))
     html = addContent(html, bar(filename1))
+    html = addContent(html, box2("Harmful diets include"))
     html= addContent(html, '<div>')
     html = addContent(html, header('Helpful Diets for '+dis))
-    html = addContent(html, box2(fr_help[col2].to_html(index=False)))
+    html = addContent(html, box1(fr_help[col2].to_html(index=False)))
     html = addContent(html, bar(filename2))
+    html = addContent(html, box2("Helpful diets include::"))
     return f'<div>{html}</div>'
 
 
@@ -542,15 +544,15 @@ def box1(text):
 
 def box2(text):
     """Create an HTML box of text"""
-    raw_html = '<tr><td><div style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 15px;float: left;">' + str(
-            text) + '</div></td>'
+    raw_html = '<td><div style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 15px;float: left;">' + str(
+            text) + '</div></td></tr></table>'
     return raw_html
 
 def bar(filename):
     """Bar chart"""
     data_uri = base64.b64encode(open(filename, 'rb').read()).decode('utf-8')
     img_tag = '<img src="data:image/png;base64,{0}">'.format(data_uri)
-    raw_html = '<td><div style="float: right;">' + img_tag + '</div></td></tr></table>'
+    raw_html = '<td><div style="float: right;">' + img_tag + '</div></td>'
     return raw_html
 
 
