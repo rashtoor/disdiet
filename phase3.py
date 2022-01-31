@@ -522,12 +522,12 @@ def network_analysis(dis):
     html = addContent(html, header('Harmful Diets for '+dis))
     html = addContent(html, box1(fr_harm[col1].to_html(index=False)))
     html = addContent(html, bar(filename1))
-    html = addContent(html, box2(f1[node2]))
+    html = addContent(html, box2(f1['node2']))
     html= addContent(html, '<div>')
     html = addContent(html, header('Helpful Diets for '+dis))
     html = addContent(html, box1(fr_help[col2].to_html(index=False)))
     html = addContent(html, bar(filename2))
-    html = addContent(html, box3(f2[node2]))
+    html = addContent(html, box3(f2['node2']))
     return f'<div>{html}</div>'
 
 
