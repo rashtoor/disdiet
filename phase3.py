@@ -536,13 +536,13 @@ def header(text):
 
 def box1(text):
     """Create an HTML box of text"""
-    raw_html = '<tr><td><div style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 16px;float: left;">' + str(
+    raw_html = '<tr><td><div style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 15px;float: left;">' + str(
             text) + '</div></td>'
     return raw_html
 
 def box2(text):
     """Create an HTML box of text"""
-    raw_html = '<tr><td><div style="border-bottom:1px inset black;border-top:1px inset black;padding:30px;font-size: 16px;float: left;">' + str(
+    raw_html = '<tr><td><div style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 15px;float: left;">' + str(
             text) + '</div></td>'
     return raw_html
 
