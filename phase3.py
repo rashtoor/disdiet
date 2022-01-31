@@ -471,7 +471,7 @@ def network_analysis(dis):
     plt.title('Harmful Diets',fontsize=8)
     figure1 = plt.gcf()
     figure1.set_size_inches(5, 3)
-    plt.savefig(filename1,dpi=100)
+    plt.savefig(filename1,dpi=300)
     
     plt.figure(2)
     plt.bar(left2, height2, tick_label = left2,
@@ -491,7 +491,7 @@ def network_analysis(dis):
     
     figure2.set_size_inches(5, 3)
     
-    plt.savefig(filename2,dpi=100)
+    plt.savefig(filename2,dpi=300)
 # function to show the plot
 #plt.show()
 
