@@ -465,11 +465,11 @@ def network_analysis(dis):
     plt.figure(1)
 # plotting a bar chart
     plt.bar(left1, height1, tick_label = left1,
-		width = 0.4, color = ['red', 'green'])
+		width = 0.4, color = ['red', 'blue'])
     plt.xticks(rotation=45, ha="right")
     plt.title('Harmful Diets')
     figure1 = plt.gcf()
-    figure1.set_size_inches(5, 3)
+    figure1.set_size_inches(5, 5)
     plt.savefig(filename1,dpi=100)
     
     plt.figure(2)
@@ -487,7 +487,7 @@ def network_analysis(dis):
     
     figure2 = plt.gcf()
     
-    figure2.set_size_inches(5, 3)
+    figure2.set_size_inches(5, 5)
     
     plt.savefig(filename2,dpi=100)
 # function to show the plot
@@ -513,11 +513,11 @@ def network_analysis(dis):
 
     html=''
     html = addContent(html, header('Harmful Diets for '+dis))
-    html = addContent(html, box(fr_harm[col1].to_html(index=False)))
+    html = addContent(html, box1(fr_harm[col1].to_html(index=False)))
     html = addContent(html, bar(filename1))
     html= addContent(html, '<div>')
     html = addContent(html, header('Helpful Diets for '+dis))
-    html = addContent(html, box(fr_help[col2].to_html(index=False)))
+    html = addContent(html, box2(fr_help[col2].to_html(index=False)))
     html = addContent(html, bar(filename2))
     return f'<div>{html}</div>'
 
@@ -530,9 +530,15 @@ def header(text):
     return raw_html
 
 
-def box(text):
+def box1(text):
     """Create an HTML box of text"""
     raw_html = '<tr><td><div style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 16px;float: left;">' + str(
+            text) + '</div></td>'
+    return raw_html
+
+def box2(text):
+    """Create an HTML box of text"""
+    raw_html = '<tr><td><div style="border-bottom:1px inset black;border-top:1px inset black;padding:30px;font-size: 16px;float: left;">' + str(
             text) + '</div></td>'
     return raw_html
 
