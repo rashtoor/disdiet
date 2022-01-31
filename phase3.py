@@ -433,6 +433,9 @@ def network_analysis(dis):
     
     dr_harm = dr_harm.sort_values(["probability", "node2"], ascending=False)
     dr_help = dr_help.sort_values(["probability", "node2"], ascending=False)
+	
+    f1=dr_harm.loc[dr_harm['probability'] >= 70.00]
+    f2=dr_help.loc[dr_help['probability'] >= 70.00]
     
     fr_harm = dr_harm.rename({'node2': 'Diet/Food item', 'probability': 'Chances of being harmful (%)'}, axis=1)
     fr_help = dr_help.rename({'node2': 'Diet/Food item', 'probability': 'Chances of being helpful (%)'}, axis=1)
@@ -519,12 +522,12 @@ def network_analysis(dis):
     html = addContent(html, header('Harmful Diets for '+dis))
     html = addContent(html, box1(fr_harm[col1].to_html(index=False)))
     html = addContent(html, bar(filename1))
-    html = addContent(html, box2("Harmful diets include"))
+    html = addContent(html, box2(f1[node2]))
     html= addContent(html, '<div>')
     html = addContent(html, header('Helpful Diets for '+dis))
     html = addContent(html, box1(fr_help[col2].to_html(index=False)))
     html = addContent(html, bar(filename2))
-    html = addContent(html, box2("Helpful diets include::"))
+    html = addContent(html, box3(f2[node2]))
     return f'<div>{html}</div>'
 
 
@@ -544,8 +547,12 @@ def box1(text):
 
 def box2(text):
     """Create an HTML box of text"""
-    raw_html = '<td><div style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 15px;float: left;">' + str(
-            text) + '</div></td></tr></table>'
+    raw_html = '<td><div style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 15px;float: left;"><table border="3" align="center"><tr><th>Conclusion</th></tr><tr><td>Considering cut off percentage of 70%, the diets harmful for CD are::' + text.to_html(index=False) + '</div></td></tr></table></td></tr></table>'
+    return raw_html
+
+def box3(text):
+    """Create an HTML box of text"""
+    raw_html = '<td><div style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 15px;float: left;"><table border="3" align="center"><tr><th>Conclusion</th></tr><tr><td>Considering cut off percentage of 70%, the diets helpful for CD are::' + text.to_html(index=False) + '</div></td></tr></table></td></tr></table>'
     return raw_html
 
 def bar(filename):
