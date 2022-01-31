@@ -470,7 +470,7 @@ def network_analysis(dis):
     plt.yticks(fontsize=8)
     plt.title('Harmful Diets',fontsize=8)
     figure1 = plt.gcf()
-    figure1.set_size_inches(5, 3)
+    figure1.set_size_inches(5, 4)
     plt.savefig(filename1,dpi=100)
     
     plt.figure(2)
@@ -489,7 +489,7 @@ def network_analysis(dis):
     
     figure2 = plt.gcf()
     
-    figure2.set_size_inches(5, 3)
+    figure2.set_size_inches(5, 4)
     
     plt.savefig(filename2,dpi=100)
 # function to show the plot
