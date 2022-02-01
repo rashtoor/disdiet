@@ -523,7 +523,7 @@ def network_analysis(dis):
     html = addContent(html, header('Harmful Diets for Crohns Disease'))
     html = addContent(html, box1(fr_harm[col1].to_html(index=False)))
     html = addContent(html, bar(filename1))
-    html = addContent(html, box2(f1['node2']))
+    html = addContent(html, box2(f1['node2'].to_frame().to_html(index=False)))
     html= addContent(html, '<div>')
     #html = addContent(html, header('Helpful Diets for '+dis))
     html = addContent(html, header('Harmful Diets for Crohns Disease'))
@@ -549,12 +549,12 @@ def box1(text):
 
 def box2(text):
     """Create an HTML box of text"""
-    raw_html = '<td width=100%><div style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 15px;float: left;"><table border="3" align="center"><tr><th colspan="4">Conclusion</th></tr><tr><td>Considering cut off percentage of 70%, the diets harmful for CD are::<br>' + text.to_html(index=False) + '</div></td></tr></table></td></tr></table>'
+    raw_html = '<td width=100%><div style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 15px;float: left;"><table border="3" align="center"><tr><th colspan="4">Conclusion</th></tr><tr><td>Considering cut off percentage of 70%, the diets harmful for CD are::<br>' + str(text) + '</div></td></tr></table></td></tr></table>'
     return raw_html
 
 def box3(text):
     """Create an HTML box of text"""
-    raw_html = '<td width=100%><div style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 15px;float: left;"><table border="3" align="center"><tr><th colspan="4">Conclusion</th></tr><tr><td>Considering cut off percentage of 70%, the diets helpful for CD are::<br>' + text.to_html(index=False) + '</div></td></tr></table></td></tr></table>'
+    raw_html = '<td width=100%><div style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 15px;float: left;"><table border="3" align="center"><tr><th colspan="4">Conclusion</th></tr><tr><td>Considering cut off percentage of 70%, the diets helpful for CD are::<br>' + text.to_string(index=False) + '</div></td></tr></table></td></tr></table>'
     return raw_html
 
 def bar(filename):
