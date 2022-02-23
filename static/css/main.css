@@ -3,6 +3,7 @@ body {
     padding: 0;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #444;
+    background-image: url('/static/img1.jpg');
   }
    
     
@@ -17,7 +18,7 @@ body {
   }
 
   .container::before {
-    background-image: url('/static/img1.jpg');
+    
     background-size: cover;
     content: "";
     display: block;
