@@ -50,7 +50,7 @@ class ReusableForm(Form):
     seed = TextField("Enter a disease:", validators=[
                      validators.InputRequired()])
    
-    submit = SubmitField("Enter")
+    submit = SubmitField("Submit")
 
 
 #def load_keras_model():
