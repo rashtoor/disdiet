@@ -17,7 +17,7 @@ body {
   }
 
   .container::before {
-    background-image: url('/static/images/script_background.png');
+    background-image: url('/static/images/img1.jpg');
     background-size: cover;
     content: "";
     display: block;
