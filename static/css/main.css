@@ -3,6 +3,7 @@ body {
     padding: 0;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #444;
+    background-image: url("..static/images/script_background.png");
   }
    
     
@@ -28,7 +29,6 @@ body {
     height: 100%;
     z-index: -2;
     opacity: 0.4;
-    background-image: url("http://www.birds.com/wp-content/uploads/home/bird4.jpg");
   }
    
   div.jumbo {
