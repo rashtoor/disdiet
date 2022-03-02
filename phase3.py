@@ -526,7 +526,7 @@ def network_analysis(dis):
     html = addContent(html, box2(f1['node2'].to_frame().to_html(index=False,header=False)))
     html= addContent(html, '<div>')
     #html = addContent(html, header('Helpful Diets for '+dis))
-    html = addContent(html, header('Harmful Diets for Crohns Disease'))
+    html = addContent(html, header('Helpful Diets for Crohns Disease'))
     html = addContent(html, box1(fr_help[col2].to_html(index=False)))
     html = addContent(html, bar(filename2))
     html = addContent(html, box3(f2['node2'].to_frame().to_html(index=False,header=False)))
